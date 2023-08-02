@@ -2,9 +2,10 @@
 #include<string.h>
 #include<malloc.h>
 #include<stdlib.h>
-void sum(int x);
+void sum(int x,int y);
 int print();
 double func(int x ,int y);
+#define M 1e6
 int main(){
     int x;
     double f;
@@ -19,8 +20,14 @@ int main(){
     for(int i=0; i<5; i++){
         scanf("%s");
     }
-    while(1){
+    int i = 5;
+    while(i<9){
         printf("Hello");
     }
     return 0;
+}
+void sum(int x,int y){
+    int z = x + y;
+    printf("%d\n",z);
+    malloc(sizeof(int));
 }
