@@ -14,6 +14,7 @@ void getTotalKeyword(string &filename,int &count,set<string> &keywords){
     string line;
     regex  reg("[^a-zA-Z0-9 ]");
     while(getline(file,line)){
+        if(line.empty())continue;
         vector <string> tokens = TokenizeLine(line,reg," ");
         for(auto token: tokens){
             if(keywords.find(token)!=keywords.end())count++;

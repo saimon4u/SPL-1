@@ -15,6 +15,7 @@ void getTotalIdentifier(string &filename,int &count,set<string> &keywords){
     regex reg("[^a-zA-Z0-9.<>]");
     bool insideMultiComment = false;
     while(getline(file,line)){
+        if(line.empty())continue;
         if(line.find("//")!=string::npos)continue;
         if(line.find("/*")!=string::npos)insideMultiComment = true;
         if(line.find("*/")!=string::npos){

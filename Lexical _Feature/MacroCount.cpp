@@ -9,7 +9,8 @@ void getTotalMacro(string &filename,int &count){
     string line;
     const string definePrefix = "#define";
     while(getline(file,line)){
-        if(line.compare(0,definePrefix.length(),definePrefix)==0)count++;
+        if(line.empty())continue;
+        else if(line.find(definePrefix)!=string::npos)count++;
     }
     file.close();
 }

@@ -13,6 +13,7 @@ void getTotalComment(string &filename,int &count){
     regex reg("[^a-zA-Z0-9//*]");
     bool insideMultiComment = false;
     while(getline(file,line)){
+        if(line.empty())continue;
         if(line.size() >= 2 && line.find("//") != string::npos)count++;
         else if(line.size() >= 2 && line.find("/*") != string::npos) {
             insideMultiComment = true;

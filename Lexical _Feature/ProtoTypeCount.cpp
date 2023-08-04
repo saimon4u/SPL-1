@@ -13,6 +13,7 @@ void getTotalFunctionPrototype(string &filename,int &count,set<string> dataType)
     string line;
     regex reg("[^a-zA-Z0-9();,= ]");
     while(getline(file,line)){
+        if(line.empty())continue;
         bool isExists = false;
         bool isInsidePrototype = false;
         if(line.find("{")!=string::npos || line.find("printf")!=string::npos || line.find("malloc")!=string::npos)continue;

@@ -17,6 +17,7 @@ void getTotalLibraryFunction(string& filename,int &count,set<string> &libraryFun
     string line;
     regex reg("[^a-zA-Z0-9,\"();.%]");
     while (getline(file, line)) {
+        if(line.empty())continue;
         line = regex_replace(line,reg," ");
         if(line.find("malloc.h")!=string::npos)continue;
         bool insideFunctionCall = false;

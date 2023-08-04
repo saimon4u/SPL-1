@@ -1,12 +1,10 @@
 
 
 string trim(string& str) {
-    int first = str.find_first_not_of(" \t");
-    int last = str.find_last_not_of(" \t");
+    int first = str.find_first_not_of("\t");
+    int last = str.find_last_not_of("\t");
     return str.substr(first, last - first + 1);
 }
-
-
 void getTotalFunctionParaMeter(string& filename,int &count,set<string> &dataType){
     ifstream file(filename);
     if(!file.is_open()){
@@ -16,7 +14,8 @@ void getTotalFunctionParaMeter(string& filename,int &count,set<string> &dataType
     string line;
     bool insideFunction = false;
     vector<string> currentParameters;
-    while(getline(file, line)){
+    while(getline(file,line)){
+        if(line.empty())continue;
         line = trim(line);
         if(line.find("(") != string::npos && line.find(")") != string::npos){
             insideFunction = true;

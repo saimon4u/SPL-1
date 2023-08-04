@@ -10,6 +10,7 @@ void getTotalDirective(string &filename,int &count){
     }
     string line;
     while(getline(file,line)){
+        if(line.empty())continue;
         if(line.find("//") == string::npos && line.find("/*") == string::npos && line.find("#include") != string::npos){
             count++;
         }

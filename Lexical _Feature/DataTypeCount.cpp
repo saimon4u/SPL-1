@@ -17,6 +17,7 @@ void getTotalDataTyep(string &filename,int &count,set<string> &dataType){
     string line;
     regex reg("[^a-zA-Z0-9 ]");
     while(getline(file,line)){
+        if(line.empty())continue;
         vector <string> tokens = TokenizeLine(line,reg," ");
         for(auto token: tokens){
             if(dataType.find(token)!=dataType.end())count++;

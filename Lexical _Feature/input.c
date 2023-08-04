@@ -20,10 +20,15 @@ int main(){
     for(int i=0; i<5; i++){
         scanf("%s");
     }
+
+    
     int i = 5;
     while(i<9){
         printf("Hello");
     }
+    do {
+    }
+    while(i>5);
     return 0;
 }
 void sum(int x,int y){

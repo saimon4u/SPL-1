@@ -16,6 +16,7 @@ void getTotalFunctionDefinition(string &filename,int &count,set<string> &dataTyp
     regex  reg("[^a-zA-Z0-9{}, ]");
     bool exists = false;
     while(getline(file, line)){
+        if(line.empty())continue;
         line = regex_replace(line,reg," ");
         if(!insideFunction)
             for(auto dt: dataType)

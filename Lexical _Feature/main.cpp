@@ -4,6 +4,7 @@
 #include<fstream>
 #include<sstream>
 #include<vector>
+#include<unordered_set>
 #include"Tokenize.cpp"
 #include"LineCount.cpp"
 #include"KeywordCount.cpp"
@@ -13,11 +14,14 @@
 #include"CommentCount.cpp"
 #include"ProtoTypeCount.cpp"
 #include"FunctionDefinitionCount.cpp"
-#include"LiteralsCount.cpp"
 #include"LibraryFunctionCount.cpp"
 #include"ParameterCount.cpp"
 #include"MacroCount.cpp"
+#include"OperatorCount.cpp"
+#include"LoopConditionCount.cpp"
 using namespace std;
+
+
 int main(){
     set <string> Keywords = {
         "auto", "break", "case", "char", "const", "continue", "default", "do", "double", "else",
@@ -63,12 +67,14 @@ int main(){
     int numOfIdentifier = 0;
     int numOfDataType = 0;
     int numOfCommentLine = 0;
-    int numOfCondition = 0;
     int numOfFunctionPrototype = 0;
     int numOfFunctionDefinition = 0;
     int numOfLibraryFunction = 0;
     int numOfFunctionParameter = 0;
     int numOfMacro = 0;
+    int numOfOperator = 0;
+    int numOfLoop = 0;
+    int numOfCondition = 0;
 
 
     string filename = "input.c";
@@ -85,8 +91,8 @@ int main(){
     getTotalLibraryFunction(filename,numOfLibraryFunction,commonLibraryFunctions);
     getTotalFunctionParaMeter(filename,numOfFunctionParameter,dataType);
     getTotalMacro(filename,numOfMacro);
-    // getTotalLiterals(filename,0,0,0,0);
-    
+    getTotalOperator(filename,numOfOperator);
+    getTotalLoopCondition(filename,numOfLoop,numOfCondition);
 
 
 
@@ -103,6 +109,9 @@ int main(){
     cout << "NumofFunctionDefinition = " << numOfFunctionDefinition << endl;
     cout << "NumofLibraryFunction = " << numOfLibraryFunction << endl;
     cout << "NumofFunctionParameter = " << numOfFunctionParameter << endl;
-    cout << "NumofMacroCall = " << numOfMacro << endl;
+    cout << "NumofMacroDefinition = " << numOfMacro << endl;
+    cout << "NumofOperator = " << numOfOperator << endl;
+    cout << "NumofLoop = " << numOfLoop << endl;
+    cout << "NumofCondition = " << numOfCondition << endl;
     return 0;
 }
