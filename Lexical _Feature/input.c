@@ -6,6 +6,7 @@ void sum(int x,int y);
 int print();
 double func(int x ,int y);
 #define M 1e6
+int global = 1;
 int main(){
     int x;
     double f;
@@ -27,6 +28,7 @@ int main(){
         printf("Hello");
     }
     do {
+        lf=(float)5/2;
     }
     while(i>5);
     return 0;

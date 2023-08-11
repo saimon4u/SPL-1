@@ -24,6 +24,7 @@ void getTotalFunctionParaMeter(string& filename,int &count,set<string> &dataType
             int endPos = line.find(")");
             if(startPos != string::npos && endPos != string::npos && startPos < endPos){
                 string parameterList = line.substr(startPos + 1, endPos - startPos - 1);
+                if(dataType.find(parameterList)!=dataType.end())continue;
                 istringstream iss(parameterList);
                 string parameter;
                 while(getline(iss, parameter, ',')){

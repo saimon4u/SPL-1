@@ -19,6 +19,9 @@
 #include"MacroCount.cpp"
 #include"OperatorCount.cpp"
 #include"LoopConditionCount.cpp"
+#include"VariableCount.cpp"
+#include"TypeCastCount.cpp"
+#include"GlobalVariableCount.cpp"
 using namespace std;
 
 
@@ -32,8 +35,12 @@ int main(){
 
 
     set <string> dataType = {
-        "int","float","double","char","void","unsigned","long"
+        "int","float","double","char","void","unsigned","long","signed","const","static","short"
     };
+
+
+    set <string> functionName = {"main"};
+
 
 
     set<string> commonLibraryFunctions = {
@@ -75,6 +82,9 @@ int main(){
     int numOfOperator = 0;
     int numOfLoop = 0;
     int numOfCondition = 0;
+    int numOfVariable = 0;
+    int numOfTypeCast = 0;
+    int numOfGlobalVariable = 0;
 
 
     string filename = "input.c";
@@ -86,32 +96,37 @@ int main(){
     getTotalDataTyep(filename,numOfDataType,dataType);
     getTotalIdentifier(filename,numOfIdentifier,Keywords);
     getTotalComment(filename,numOfCommentLine);
-    getTotalFunctionPrototype(filename,numOfFunctionPrototype,dataType);
+    getTotalFunctionPrototype(filename,numOfFunctionPrototype,dataType,functionName);
     getTotalFunctionDefinition(filename,numOfFunctionDefinition,dataType);
     getTotalLibraryFunction(filename,numOfLibraryFunction,commonLibraryFunctions);
     getTotalFunctionParaMeter(filename,numOfFunctionParameter,dataType);
     getTotalMacro(filename,numOfMacro);
     getTotalOperator(filename,numOfOperator);
     getTotalLoopCondition(filename,numOfLoop,numOfCondition);
+    getTotalVariable(filename,numOfVariable,functionName);
+    getTotalTypeCast(filename,numOfTypeCast,dataType);
+    getTotalGlobalVariable(filename,numOfGlobalVariable);
 
 
 
 
 
-
-    cout << "NumOfLine = " << totalLine << endl;
-    cout << "NumofKeywords = " << numOfKeyword << endl;
-    cout << "NumofDirectives = " << numOfDirectives << endl;
-    cout << "NumofIndentifier = " << numOfIdentifier << endl;
-    cout << "NumofDataType = " << numOfDataType << endl;
-    cout << "NumofCommentLine = " << numOfCommentLine << endl;
-    cout << "NumofFunctionProtoType = " << numOfFunctionPrototype << endl;
-    cout << "NumofFunctionDefinition = " << numOfFunctionDefinition << endl;
-    cout << "NumofLibraryFunction = " << numOfLibraryFunction << endl;
-    cout << "NumofFunctionParameter = " << numOfFunctionParameter << endl;
-    cout << "NumofMacroDefinition = " << numOfMacro << endl;
-    cout << "NumofOperator = " << numOfOperator << endl;
-    cout << "NumofLoop = " << numOfLoop << endl;
-    cout << "NumofCondition = " << numOfCondition << endl;
+    cout << "1.NumOfLine = " << totalLine << endl;
+    cout << "2.NumofKeywords = " << numOfKeyword << endl;
+    cout << "3.NumofDirectives = " << numOfDirectives << endl;
+    cout << "4.NumofIndentifier = " << numOfIdentifier << endl;
+    cout << "5.NumofDataType = " << numOfDataType << endl;
+    cout << "6.NumofCommentLine = " << numOfCommentLine << endl;
+    cout << "7.NumofFunctionProtoType = " << numOfFunctionPrototype << endl;
+    cout << "8.NumofFunctionDefinition = " << numOfFunctionDefinition << endl;
+    cout << "9.NumofLibraryFunction = " << numOfLibraryFunction << endl;
+    cout << "10.NumofFunctionParameter = " << numOfFunctionParameter << endl;
+    cout << "11.NumofMacroDefinition = " << numOfMacro << endl;
+    cout << "12.NumofOperator = " << numOfOperator << endl;
+    cout << "13.NumofLoop = " << numOfLoop << endl;
+    cout << "14.NumofCondition = " << numOfCondition << endl;
+    cout << "15.NumofVariable = " << numOfVariable << endl;
+    cout << "16.NumofTypeCast = " << numOfTypeCast << endl;
+    cout << "17.NumofGlobalVariable = " << numOfGlobalVariable << endl;
     return 0;
 }

@@ -4,19 +4,20 @@
 // #include<set>
 using namespace std;
 
-void getTotalFunctionPrototype(string &filename,int &count,set<string> dataType){
+void getTotalFunctionPrototype(string &filename,int &count,set<string> dataType,set<string> &functionName){
     ifstream file(filename);
     if(!file.is_open()){
         cerr << "Error Opening file: " << filename << endl;
         return;
     }
     string line;
-    regex reg("[^a-zA-Z0-9();,= ]");
+    regex reg("[^a-zA-Z0-9_]");
     while(getline(file,line)){
         if(line.empty())continue;
         bool isExists = false;
         bool isInsidePrototype = false;
         if(line.find("{")!=string::npos || line.find("printf")!=string::npos || line.find("malloc")!=string::npos)continue;
+        if(line.find("(int)")!=string::npos || line.find("(double)")!=string::npos || line.find("float")!=string::npos || line.find("char")!=string::npos)continue;
         for(auto data: dataType){
             if(line.find(data)!=string::npos){
                 isExists = true;
@@ -38,6 +39,12 @@ void getTotalFunctionPrototype(string &filename,int &count,set<string> dataType)
                     while(j<line.length() && line[j]!=';')j++;
                     if(j<line.length() && line[j] == ';')count++;
                     isInsidePrototype = false;
+                    line = regex_replace(line,reg," ");
+                    istringstream iss(line);
+                    string word;
+                    iss>>word;
+                    iss>>word;
+                    functionName.insert(word);
                 }
             }
         }
