@@ -1,11 +1,10 @@
-void getTotalVariable(string& filename,int &count,set<string> &functionName) {
+void getTotalVariable(string& filename,int &count,set<string> &functionName,set<string> &declaredVariables){
     ifstream file(filename);
     if (!file.is_open()) {
         cerr << "Error opening file: " << filename << endl;
         return;
     }
     string line;
-    unordered_set<string> declaredVariables;
     while (getline(file,line)) {
         istringstream iss(line);
         string word;
@@ -29,6 +28,7 @@ void getTotalVariable(string& filename,int &count,set<string> &functionName) {
             }
         }
     }
+    cout << endl;
     file.close();
     count = declaredVariables.size();
 }

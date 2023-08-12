@@ -22,10 +22,24 @@
 #include"VariableCount.cpp"
 #include"TypeCastCount.cpp"
 #include"GlobalVariableCount.cpp"
+#include"SpacingAroundOperatorCount.cpp"
+#include"AverageVariableLength.cpp"
+#include"AverageLengthOfFunctionName.cpp"
 using namespace std;
 
 
 int main(){
+
+
+
+    set <string> operators = {
+        "+", "-", "*", "/", "%", "==", "!=", "<", ">", "<=", ">=", "&&", "||", "!",
+        "&", "|", "^", "~", "<<", ">>", "=", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=",
+        "<<=", ">>=","->", ":", "?"
+    };
+
+
+
     set <string> Keywords = {
         "auto", "break", "case", "char", "const", "continue", "default", "do", "double", "else",
         "enum", "extern", "float", "for", "goto", "if", "int", "long", "register", "return",
@@ -42,29 +56,32 @@ int main(){
     set <string> functionName = {"main"};
 
 
+    set <string> declaredVariables;
+
+
 
     set<string> commonLibraryFunctions = {
-                "printf","scanf","malloc",
-                "free","calloc","realloc",
-                "strlen","strcpy","strncpy",
-                "strcat","strncat","strcmp",
-                "strncmp","sprintf","sscanf",
-                "fopen","fclose","fread",
-                "fwrite","fgets","fputs",
-                "fscanf","fprintf","getchar",
-                "putchar","getch","putch",
-                "getche","puts","system",
-                "atoi","atof","isdigit",
-                "isalpha","isalnum","islower",
-                "isupper","tolower","toupper",
-                "rand","srand","time","abs",
-                "labs","sqrt","pow","ceil",
-                "floor","fabs","log","log10",
-                "exp","sin","cos","tan","asin",
-                "acos","atan","atan2","exit",
-                "getenv","system","memcpy",
-                "memmove","memset","memchr",
-                "memcmp"
+        "printf","scanf","malloc",
+        "free","calloc","realloc",
+        "strlen","strcpy","strncpy",
+        "strcat","strncat","strcmp",
+        "strncmp","sprintf","sscanf",
+        "fopen","fclose","fread",
+        "fwrite","fgets","fputs",
+        "fscanf","fprintf","getchar",
+        "putchar","getch","putch",
+        "getche","puts","system",
+        "atoi","atof","isdigit",
+        "isalpha","isalnum","islower",
+        "isupper","tolower","toupper",
+        "rand","srand","time","abs",
+        "labs","sqrt","pow","ceil",
+        "floor","fabs","log","log10",
+        "exp","sin","cos","tan","asin",
+        "acos","atan","atan2","exit",
+        "getenv","system","memcpy",
+        "memmove","memset","memchr",
+        "memcmp"
     };
 
 
@@ -85,6 +102,10 @@ int main(){
     int numOfVariable = 0;
     int numOfTypeCast = 0;
     int numOfGlobalVariable = 0;
+    int numOfLineSpacingAroundOperators = 0;
+    double averageVariableLength = 0.0;
+    double averageFunctionLength = 0.0;
+    double averageStatementPerFunction = 0.0;
 
 
     string filename = "input.c";
@@ -97,16 +118,18 @@ int main(){
     getTotalIdentifier(filename,numOfIdentifier,Keywords);
     getTotalComment(filename,numOfCommentLine);
     getTotalFunctionPrototype(filename,numOfFunctionPrototype,dataType,functionName);
-    getTotalFunctionDefinition(filename,numOfFunctionDefinition,dataType);
+    getTotalFunctionDefinition(filename,numOfFunctionDefinition,dataType,functionName,averageStatementPerFunction);
     getTotalLibraryFunction(filename,numOfLibraryFunction,commonLibraryFunctions);
     getTotalFunctionParaMeter(filename,numOfFunctionParameter,dataType);
     getTotalMacro(filename,numOfMacro);
     getTotalOperator(filename,numOfOperator);
     getTotalLoopCondition(filename,numOfLoop,numOfCondition);
-    getTotalVariable(filename,numOfVariable,functionName);
+    getTotalVariable(filename,numOfVariable,functionName,declaredVariables);
     getTotalTypeCast(filename,numOfTypeCast,dataType);
     getTotalGlobalVariable(filename,numOfGlobalVariable);
-
+    getAverageVariableLength(declaredVariables,averageVariableLength);
+    getTotalLineSpacingAroundOperators(filename,numOfLineSpacingAroundOperators,operators);
+    getAverageLengthOfFunctionName(averageFunctionLength,functionName);
 
 
 
@@ -128,5 +151,9 @@ int main(){
     cout << "15.NumofVariable = " << numOfVariable << endl;
     cout << "16.NumofTypeCast = " << numOfTypeCast << endl;
     cout << "17.NumofGlobalVariable = " << numOfGlobalVariable << endl;
+    cout << "18.NumofLineSpacingAroundOperators = " << numOfLineSpacingAroundOperators << endl;
+    cout << "19.AverageLengthOfVariable = " << averageVariableLength << endl;
+    cout << "20.AverageLengthOfFunctionName = " << averageFunctionLength << endl;
+    cout << "21.AverageStatementPerFunction = " << averageStatementPerFunction << endl;
     return 0;
 }
