@@ -20,9 +20,12 @@ int main(){
     else;
     for(int i=0; i<5; i++){
         scanf("%s");
+        printf("Hello world");
     }
 
-    
+
+
+
     int i = 5;
     while(i<9){
         printf("Hello");

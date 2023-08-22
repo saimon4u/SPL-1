@@ -4,6 +4,7 @@
 #include<fstream>
 #include<sstream>
 #include<vector>
+#include<numeric>
 #include<unordered_set>
 #include"Tokenize.cpp"
 #include"LineCount.cpp"
@@ -25,6 +26,8 @@
 #include"SpacingAroundOperatorCount.cpp"
 #include"AverageVariableLength.cpp"
 #include"AverageLengthOfFunctionName.cpp"
+#include"../Syntactical_Features/FunctionLength.cpp"
+#include"../Syntactical_Features/BlockLength.cpp"
 using namespace std;
 
 
@@ -103,10 +106,11 @@ int main(){
     int numOfTypeCast = 0;
     int numOfGlobalVariable = 0;
     int numOfLineSpacingAroundOperators = 0;
+    int maxFunctionLength = 0;
+    int maxNestingLevel = 0;
     double averageVariableLength = 0.0;
     double averageFunctionLength = 0.0;
-    double averageStatementPerFunction = 0.0;
-
+    double averageNestingLevel = 0.0;
 
     string filename = "input.c";
 
@@ -118,7 +122,7 @@ int main(){
     getTotalIdentifier(filename,numOfIdentifier,Keywords);
     getTotalComment(filename,numOfCommentLine);
     getTotalFunctionPrototype(filename,numOfFunctionPrototype,dataType,functionName);
-    getTotalFunctionDefinition(filename,numOfFunctionDefinition,dataType,functionName,averageStatementPerFunction);
+    getTotalFunctionDefinition(filename,numOfFunctionDefinition,dataType,functionName);
     getTotalLibraryFunction(filename,numOfLibraryFunction,commonLibraryFunctions);
     getTotalFunctionParaMeter(filename,numOfFunctionParameter,dataType);
     getTotalMacro(filename,numOfMacro);
@@ -130,7 +134,8 @@ int main(){
     getAverageVariableLength(declaredVariables,averageVariableLength);
     getTotalLineSpacingAroundOperators(filename,numOfLineSpacingAroundOperators,operators);
     getAverageLengthOfFunctionName(averageFunctionLength,functionName);
-
+    functionLength(filename,0,dataType,averageFunctionLength,maxFunctionLength);
+    blockLength(filename,maxNestingLevel,averageNestingLevel);
 
 
 
@@ -154,6 +159,9 @@ int main(){
     cout << "18.NumofLineSpacingAroundOperators = " << numOfLineSpacingAroundOperators << endl;
     cout << "19.AverageLengthOfVariable = " << averageVariableLength << endl;
     cout << "20.AverageLengthOfFunctionName = " << averageFunctionLength << endl;
-    cout << "21.AverageStatementPerFunction = " << averageStatementPerFunction << endl;
+    cout << "21.AverageFunctionLength = " << averageFunctionLength << endl;
+    cout << "22.MaximumFunctionLength = " << maxFunctionLength << endl;
+    cout << "23.AverageNestingLevel = " << averageNestingLevel << endl;
+    cout << "24.MaximumNestingLevel = " << maxNestingLevel << endl;
     return 0;
 }
