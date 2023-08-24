@@ -16,12 +16,16 @@ void getTotalOperator(string &filename,int &count){
 
     string line;
     bool insideComment = false;
-
+    bool insideQoute = false;
     while(getline(file, line)){
         if(line.empty())continue;
         if(line.find("#include")!=string::npos)continue;
         else if(line.find("//")!=string::npos)continue;
         else if(line.find("/*")!=string::npos && line.find("*/")==string::npos){
+            // insideComment = true;
+            continue;
+        }
+        else if(line.find("/*") != string::npos){
             insideComment = true;
             continue;
         }
@@ -32,6 +36,10 @@ void getTotalOperator(string &filename,int &count){
         else if(insideComment)continue;
         for(int i = 0; i < line.size(); ++i){
             char c = line[i];
+            if(c=='"')insideQoute = !insideQoute;
+            if(insideQoute){
+                continue;
+            }
             if(isOperator(c)){
                 count++;
             }

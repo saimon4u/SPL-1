@@ -8,7 +8,7 @@ double func(int x ,int y);
 #define M 1e6
 int global = 1;
 int main(){
-    int x;
+    int x,p,name;
     double f;
     char c;
     // this is a single line comment

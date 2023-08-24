@@ -28,6 +28,7 @@
 #include"AverageLengthOfFunctionName.cpp"
 #include"../Syntactical_Features/FunctionLength.cpp"
 #include"../Syntactical_Features/BlockLength.cpp"
+#include"../Syntactical_Features/LongChain.cpp"
 using namespace std;
 
 
@@ -47,7 +48,7 @@ int main(){
         "auto", "break", "case", "char", "const", "continue", "default", "do", "double", "else",
         "enum", "extern", "float", "for", "goto", "if", "int", "long", "register", "return",
         "short", "signed", "sizeof", "static", "struct", "switch", "typedef", "union", "unsigned",
-        "void", "volatile", "while"
+        "void", "volatile", "while","include"
     };
 
 
@@ -108,11 +109,14 @@ int main(){
     int numOfLineSpacingAroundOperators = 0;
     int maxFunctionLength = 0;
     int maxNestingLevel = 0;
+    int maxVarDeclared = 0;
     double averageVariableLength = 0.0;
     double averageFunctionLength = 0.0;
+    double averageFunctionNameLength = 0.0;
     double averageNestingLevel = 0.0;
+    double averageVarDeclare = 0.0;
 
-    string filename = "input.c";
+    string filename = "newfile.c";
 
 
     getTotalLine(filename,totalLine);
@@ -128,14 +132,15 @@ int main(){
     getTotalMacro(filename,numOfMacro);
     getTotalOperator(filename,numOfOperator);
     getTotalLoopCondition(filename,numOfLoop,numOfCondition);
-    getTotalVariable(filename,numOfVariable,functionName,declaredVariables);
+    getTotalVariable(filename,numOfVariable,functionName,declaredVariables,dataType,commonLibraryFunctions);
     getTotalTypeCast(filename,numOfTypeCast,dataType);
-    getTotalGlobalVariable(filename,numOfGlobalVariable);
+    getTotalGlobalVariable(filename,numOfGlobalVariable,dataType,functionName);
     getAverageVariableLength(declaredVariables,averageVariableLength);
     getTotalLineSpacingAroundOperators(filename,numOfLineSpacingAroundOperators,operators);
-    getAverageLengthOfFunctionName(averageFunctionLength,functionName);
+    getAverageLengthOfFunctionName(averageFunctionNameLength,functionName);
     functionLength(filename,0,dataType,averageFunctionLength,maxFunctionLength);
     blockLength(filename,maxNestingLevel,averageNestingLevel);
+    longChainDeclaration(filename,maxVarDeclared,averageVarDeclare,dataType,declaredVariables);
 
 
 
@@ -158,10 +163,12 @@ int main(){
     cout << "17.NumofGlobalVariable = " << numOfGlobalVariable << endl;
     cout << "18.NumofLineSpacingAroundOperators = " << numOfLineSpacingAroundOperators << endl;
     cout << "19.AverageLengthOfVariable = " << averageVariableLength << endl;
-    cout << "20.AverageLengthOfFunctionName = " << averageFunctionLength << endl;
+    cout << "20.AverageLengthOfFunctionName = " << averageFunctionNameLength << endl;
     cout << "21.AverageFunctionLength = " << averageFunctionLength << endl;
     cout << "22.MaximumFunctionLength = " << maxFunctionLength << endl;
     cout << "23.AverageNestingLevel = " << averageNestingLevel << endl;
     cout << "24.MaximumNestingLevel = " << maxNestingLevel << endl;
+    cout << "25 MaximumVarDeclaration = " << maxVarDeclared << endl;
+    cout << "26 AverageVarDeclaration = " << averageVarDeclare << endl;
     return 0;
 }

@@ -16,7 +16,7 @@ void getTotalFunctionPrototype(string &filename,int &count,set<string> dataType,
         if(line.empty())continue;
         bool isExists = false;
         bool isInsidePrototype = false;
-        if(line.find("{")!=string::npos || line.find("printf")!=string::npos || line.find("malloc")!=string::npos)continue;
+        if(line.find("{")!=string::npos || line.find("printf")!=string::npos || line.find("malloc")!=string::npos || line.find("=") != string::npos)continue;
         if(line.find("(int)")!=string::npos || line.find("(double)")!=string::npos || line.find("float")!=string::npos || line.find("char")!=string::npos)continue;
         for(auto data: dataType){
             if(line.find(data)!=string::npos){
