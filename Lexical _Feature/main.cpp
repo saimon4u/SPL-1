@@ -5,6 +5,7 @@
 #include<sstream>
 #include<vector>
 #include<numeric>
+#include<filesystem>
 #include<unordered_set>
 #include"Tokenize.cpp"
 #include"LineCount.cpp"
@@ -32,7 +33,7 @@
 using namespace std;
 
 
-int main(){
+int funct(){
 
 
 
@@ -119,56 +120,56 @@ int main(){
     string filename = "newfile.c";
 
 
-    getTotalLine(filename,totalLine);
-    getTotalKeyword(filename,numOfKeyword,Keywords);
-    getTotalDirective(filename,numOfDirectives);
-    getTotalDataTyep(filename,numOfDataType,dataType);
-    getTotalIdentifier(filename,numOfIdentifier,Keywords);
-    getTotalComment(filename,numOfCommentLine);
-    getTotalFunctionPrototype(filename,numOfFunctionPrototype,dataType,functionName);
-    getTotalFunctionDefinition(filename,numOfFunctionDefinition,dataType,functionName);
-    getTotalLibraryFunction(filename,numOfLibraryFunction,commonLibraryFunctions);
-    getTotalFunctionParaMeter(filename,numOfFunctionParameter,dataType);
-    getTotalMacro(filename,numOfMacro);
-    getTotalOperator(filename,numOfOperator);
-    getTotalLoopCondition(filename,numOfLoop,numOfCondition);
-    getTotalVariable(filename,numOfVariable,functionName,declaredVariables,dataType,commonLibraryFunctions);
-    getTotalTypeCast(filename,numOfTypeCast,dataType);
-    getTotalGlobalVariable(filename,numOfGlobalVariable,dataType,functionName);
-    getAverageVariableLength(declaredVariables,averageVariableLength);
-    getTotalLineSpacingAroundOperators(filename,numOfLineSpacingAroundOperators,operators);
-    getAverageLengthOfFunctionName(averageFunctionNameLength,functionName);
-    functionLength(filename,0,dataType,averageFunctionLength,maxFunctionLength);
-    blockLength(filename,maxNestingLevel,averageNestingLevel);
-    longChainDeclaration(filename,maxVarDeclared,averageVarDeclare,dataType,declaredVariables);
+    // getTotalLine(filename,totalLine);
+    // getTotalKeyword(filename,numOfKeyword,Keywords);
+    // getTotalDirective(filename,numOfDirectives);
+    // getTotalDataTyep(filename,numOfDataType,dataType);
+    // getTotalIdentifier(filename,numOfIdentifier,Keywords);
+    // getTotalComment(filename,numOfCommentLine);
+    // getTotalFunctionPrototype(filename,numOfFunctionPrototype,dataType,functionName);
+    // getTotalFunctionDefinition(filename,numOfFunctionDefinition,dataType,functionName);
+    // getTotalLibraryFunction(filename,numOfLibraryFunction,commonLibraryFunctions);
+    // getTotalFunctionParaMeter(filename,numOfFunctionParameter,dataType);
+    // getTotalMacro(filename,numOfMacro);
+    // getTotalOperator(filename,numOfOperator);
+    // getTotalLoopCondition(filename,numOfLoop,numOfCondition);
+    // getTotalVariable(filename,numOfVariable,functionName,declaredVariables,dataType,commonLibraryFunctions);
+    // getTotalTypeCast(filename,numOfTypeCast,dataType);
+    // getTotalGlobalVariable(filename,numOfGlobalVariable,dataType,functionName);
+    // getAverageVariableLength(declaredVariables,averageVariableLength);
+    // getTotalLineSpacingAroundOperators(filename,numOfLineSpacingAroundOperators,operators);
+    // getAverageLengthOfFunctionName(averageFunctionNameLength,functionName);
+    // functionLength(filename,0,dataType,averageFunctionLength,maxFunctionLength);
+    // blockLength(filename,maxNestingLevel,averageNestingLevel);
+    // longChainDeclaration(filename,maxVarDeclared,averageVarDeclare,dataType,declaredVariables);
 
 
 
-    cout << "1.NumOfLine = " << totalLine << endl;
-    cout << "2.NumofKeywords = " << numOfKeyword << endl;
-    cout << "3.NumofDirectives = " << numOfDirectives << endl;
-    cout << "4.NumofIndentifier = " << numOfIdentifier << endl;
-    cout << "5.NumofDataType = " << numOfDataType << endl;
-    cout << "6.NumofCommentLine = " << numOfCommentLine << endl;
-    cout << "7.NumofFunctionProtoType = " << numOfFunctionPrototype << endl;
-    cout << "8.NumofFunctionDefinition = " << numOfFunctionDefinition << endl;
-    cout << "9.NumofLibraryFunction = " << numOfLibraryFunction << endl;
-    cout << "10.NumofFunctionParameter = " << numOfFunctionParameter << endl;
-    cout << "11.NumofMacroDefinition = " << numOfMacro << endl;
-    cout << "12.NumofOperator = " << numOfOperator << endl;
-    cout << "13.NumofLoop = " << numOfLoop << endl;
-    cout << "14.NumofCondition = " << numOfCondition << endl;
-    cout << "15.NumofVariable = " << numOfVariable << endl;
-    cout << "16.NumofTypeCast = " << numOfTypeCast << endl;
-    cout << "17.NumofGlobalVariable = " << numOfGlobalVariable << endl;
-    cout << "18.NumofLineSpacingAroundOperators = " << numOfLineSpacingAroundOperators << endl;
-    cout << "19.AverageLengthOfVariable = " << averageVariableLength << endl;
-    cout << "20.AverageLengthOfFunctionName = " << averageFunctionNameLength << endl;
-    cout << "21.AverageFunctionLength = " << averageFunctionLength << endl;
-    cout << "22.MaximumFunctionLength = " << maxFunctionLength << endl;
-    cout << "23.AverageNestingLevel = " << averageNestingLevel << endl;
-    cout << "24.MaximumNestingLevel = " << maxNestingLevel << endl;
-    cout << "25 MaximumVarDeclaration = " << maxVarDeclared << endl;
-    cout << "26 AverageVarDeclaration = " << averageVarDeclare << endl;
+    // cout << "1.NumOfLine = " << totalLine << endl;
+    // cout << "2.NumofKeywords = " << numOfKeyword << endl;
+    // cout << "3.NumofDirectives = " << numOfDirectives << endl;
+    // cout << "4.NumofIndentifier = " << numOfIdentifier << endl;
+    // cout << "5.NumofDataType = " << numOfDataType << endl;
+    // cout << "6.NumofCommentLine = " << numOfCommentLine << endl;
+    // cout << "7.NumofFunctionProtoType = " << numOfFunctionPrototype << endl;
+    // cout << "8.NumofFunctionDefinition = " << numOfFunctionDefinition << endl;
+    // cout << "9.NumofLibraryFunction = " << numOfLibraryFunction << endl;
+    // cout << "10.NumofFunctionParameter = " << numOfFunctionParameter << endl;
+    // cout << "11.NumofMacroDefinition = " << numOfMacro << endl;
+    // cout << "12.NumofOperator = " << numOfOperator << endl;
+    // cout << "13.NumofLoop = " << numOfLoop << endl;
+    // cout << "14.NumofCondition = " << numOfCondition << endl;
+    // cout << "15.NumofVariable = " << numOfVariable << endl;
+    // cout << "16.NumofTypeCast = " << numOfTypeCast << endl;
+    // cout << "17.NumofGlobalVariable = " << numOfGlobalVariable << endl;
+    // cout << "18.NumofLineSpacingAroundOperators = " << numOfLineSpacingAroundOperators << endl;
+    // cout << "19.AverageLengthOfVariable = " << averageVariableLength << endl;
+    // cout << "20.AverageLengthOfFunctionName = " << averageFunctionNameLength << endl;
+    // cout << "21.AverageFunctionLength = " << averageFunctionLength << endl;
+    // cout << "22.MaximumFunctionLength = " << maxFunctionLength << endl;
+    // cout << "23.AverageNestingLevel = " << averageNestingLevel << endl;
+    // cout << "24.MaximumNestingLevel = " << maxNestingLevel << endl;
+    // cout << "25 MaximumVarDeclaration = " << maxVarDeclared << endl;
+    // cout << "26 AverageVarDeclaration = " << averageVarDeclare << endl;
     return 0;
 }
