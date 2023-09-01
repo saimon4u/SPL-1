@@ -3,11 +3,12 @@
 // #include<regex>
 using namespace std;
 
-void getTotalComment(string &filename,int &count){
+int getTotalComment(string &filename){
+    int count = 0;
     ifstream file(filename);
     if(!file.is_open()){
         cerr << "Error Opening file: " << filename << endl;
-        return;
+        return -1;
     }
     string line;
     regex reg("[^a-zA-Z0-9//*]");
@@ -26,4 +27,5 @@ void getTotalComment(string &filename,int &count){
         else if(insideMultiComment)count++;
     }
     file.close();
+    return count;
 }

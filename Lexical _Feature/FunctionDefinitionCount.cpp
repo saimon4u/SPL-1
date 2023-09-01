@@ -5,11 +5,12 @@
 using namespace std;
 
 
-void getTotalFunctionDefinition(string &filename,int &count,set<string> &dataType,set<string> &functionName){
+int getTotalFunctionDefinition(string &filename,set<string> &dataType,set<string> &functionName){
+    int count = 0;
     ifstream file(filename);
     if(!file.is_open()){
         cerr << "Error opening file: " << filename << std::endl;
-        return;
+        return -1;
     }
     string line;
     bool insideFunction = false;
@@ -54,4 +55,5 @@ void getTotalFunctionDefinition(string &filename,int &count,set<string> &dataTyp
         }
     }
     file.close();
+    return count;
 }

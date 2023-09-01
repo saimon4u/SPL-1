@@ -7,11 +7,12 @@ bool isOperator(char c){
     return operators.find(c) != operators.end();
 }
 
-void getTotalOperator(string &filename,int &count){
+int getTotalOperator(string &filename){
+    int count = 0;
     ifstream file(filename);
     if(!file.is_open()){
         cerr << "Error opening file: " << filename << endl;
-        return;
+        return -1;
     }
 
     string line;
@@ -49,4 +50,5 @@ void getTotalOperator(string &filename,int &count){
         }
     }
     file.close();
+    return count;
 }

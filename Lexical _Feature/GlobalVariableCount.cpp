@@ -1,8 +1,9 @@
-void getTotalGlobalVariable(string& filename,int &count,set<string> &dataType,set<string> &functionName){
+int getTotalGlobalVariable(string& filename,set<string> &dataType,set<string> &functionName){
+    int count = 0;
     ifstream file(filename);
     if(!file.is_open()){
         cerr << "Error opening file: " << filename << endl;
-        return;
+        return -1;
     }
     string line;
     unordered_set <string> declaredVariables;
@@ -53,5 +54,6 @@ void getTotalGlobalVariable(string& filename,int &count,set<string> &dataType,se
     }
     file.close();
     count = declaredVariables.size();
+    return count;
 }
 

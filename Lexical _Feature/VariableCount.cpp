@@ -10,11 +10,12 @@ bool inLibrary(string line,set<string> &library){
     }
     return false;
 }
-void getTotalVariable(string& filename,int &count,set<string> &functionName,set<string> &declaredVariables,set<string> &dataType,set<string> &library){
+int getTotalVariable(string& filename,set<string> &functionName,set<string> &declaredVariables,set<string> &dataType,set<string> &library){
+    int count = 0;
     ifstream file(filename);
     if (!file.is_open()) {
         cerr << "Error opening file: " << filename << endl;
-        return;
+        return -1;
     }
     string line;
     while (getline(file,line)){
@@ -43,4 +44,5 @@ void getTotalVariable(string& filename,int &count,set<string> &functionName,set<
     }
     file.close();
     count = declaredVariables.size();
+    return count;
 }

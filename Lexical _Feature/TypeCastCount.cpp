@@ -1,8 +1,9 @@
-void getTotalTypeCast(string& filename,int &count,set<string> &dataType){
+int getTotalTypeCast(string& filename,set<string> &dataType){
+    int count = 0;
     ifstream file(filename);
     if(!file.is_open()){
         cerr << "Error opening file: " << filename << endl;
-        return;
+        return -1;
     }
     string line;
     while(getline(file,line)){
@@ -22,4 +23,5 @@ void getTotalTypeCast(string& filename,int &count,set<string> &dataType){
         }
     }
     file.close();
+    return count;
 }

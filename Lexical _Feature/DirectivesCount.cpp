@@ -2,11 +2,12 @@
 // #include<fstream>
 using namespace std;
 
-void getTotalDirective(string &filename,int &count){
+int getTotalDirective(string &filename){
+    int count = 0;
     ifstream file(filename);
     if(!file.is_open()){
         cerr << "Error Opening file: " << filename << endl;
-        return;
+        return -1;
     }
     string line;
     while(getline(file,line)){
@@ -15,4 +16,6 @@ void getTotalDirective(string &filename,int &count){
             count++;
         }
     }
+    file.close();
+    return count;
 }

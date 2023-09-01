@@ -8,11 +8,12 @@ bool isValidIdentifierChar(char c){
     return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c == '_') || (c >= '0' && c <= '9');
 }
 
-void getTotalLibraryFunction(string& filename,int &count,set<string> &libraryFunction){
+int getTotalLibraryFunction(string& filename,set<string> &libraryFunction){
+    int count = 0;
     ifstream file(filename);
     if(!file.is_open()){
         cerr << "Error opening file: " << filename << endl;
-        return;
+        return -1;
     }
     string line;
     regex reg("[^a-zA-Z0-9,\"();.%]");
@@ -43,4 +44,5 @@ void getTotalLibraryFunction(string& filename,int &count,set<string> &libraryFun
         }
     }
     file.close();
+    return count;
 }

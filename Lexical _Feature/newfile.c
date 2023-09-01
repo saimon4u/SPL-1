@@ -21,5 +21,6 @@ int main(){
     scanf("%d",&n);
     double res = fib(n);
     printf("%dth fib number is: %.1lf\n",n,res);
+    for(int i=0; i<5; i++);
     return 0;
 }

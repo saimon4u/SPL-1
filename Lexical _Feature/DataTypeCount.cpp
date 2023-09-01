@@ -8,11 +8,12 @@ using namespace std;
 
 
 
-void getTotalDataTyep(string &filename,int &count,set<string> &dataType){
+int getTotalDataTyep(string &filename,set<string> &dataType){
+    int count = 0;
     ifstream file(filename);
     if(!file.is_open()){
         cerr << "Error Opening file: " << filename << endl;
-        return;
+        return -1;
     }
     string line;
     regex reg("[^a-zA-Z0-9 ]");
@@ -24,4 +25,5 @@ void getTotalDataTyep(string &filename,int &count,set<string> &dataType){
         }
     }
     file.close();
+    return count;
 }

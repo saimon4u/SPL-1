@@ -1,8 +1,9 @@
-void getTotalLineSpacingAroundOperators(string& filename,int &count,set<string> &operators){
+int getTotalLineSpacingAroundOperators(string& filename,set<string> &operators){
+    int count = 0;
     ifstream file(filename);
     if(!file.is_open()){
         cerr << "Error opening file: " << filename << endl;
-        return;
+        return -1;
     }
 
     string line;
@@ -24,7 +25,7 @@ void getTotalLineSpacingAroundOperators(string& filename,int &count,set<string> 
             count++;
         }
     }
-
     file.close();
+    return count;
 }
 

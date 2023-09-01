@@ -5,11 +5,12 @@
 using namespace std;
 
 
-void getTotalKeyword(string &filename,int &count,set<string> &keywords){
+int getTotalKeyword(string &filename,set<string> &keywords){
+    int count = 0;
     ifstream file(filename);
     if(!file.is_open()){
         cerr << "Error Opening file: " << filename << endl;
-        return;
+        return -1;
     }
     string line;
     regex  reg("[^a-zA-Z0-9 ]");
@@ -21,4 +22,5 @@ void getTotalKeyword(string &filename,int &count,set<string> &keywords){
         }
     }
     file.close();
+    return count;
 }

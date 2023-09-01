@@ -1,17 +1,19 @@
-// #include<iostream>
-// #include<fstream>
+#include<iostream>
+#include<fstream>
 using namespace std;
 
 
-void getTotalLine(string &filename,int &count){
+int getTotalLine(string &filename){
+    int count = 0;
     ifstream file(filename);
     if(!file.is_open()){
         cerr << "Error Opening file: " << filename << endl;
-        return;
+        return -1;
     }
     string line;
     while(getline(file,line)){
         count++;
     }
     file.close();
+    return count;
 }

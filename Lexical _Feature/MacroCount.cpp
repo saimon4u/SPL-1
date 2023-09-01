@@ -1,10 +1,11 @@
 
 
-void getTotalMacro(string &filename,int &count){
+int getTotalMacro(string &filename){
+    int count = 0;
     ifstream file(filename);
     if(!file.is_open()){
         cerr << "Error opening file: " << filename << endl;
-        return;
+        return -1;
     }
     string line;
     const string definePrefix = "#define";
@@ -13,4 +14,5 @@ void getTotalMacro(string &filename,int &count){
         else if(line.find(definePrefix)!=string::npos)count++;
     }
     file.close();
+    return count;
 }

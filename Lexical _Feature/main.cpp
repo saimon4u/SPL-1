@@ -20,7 +20,6 @@
 #include"ParameterCount.cpp"
 #include"MacroCount.cpp"
 #include"OperatorCount.cpp"
-#include"LoopConditionCount.cpp"
 #include"VariableCount.cpp"
 #include"TypeCastCount.cpp"
 #include"GlobalVariableCount.cpp"
@@ -28,12 +27,15 @@
 #include"AverageVariableLength.cpp"
 #include"AverageLengthOfFunctionName.cpp"
 #include"../Syntactical_Features/FunctionLength.cpp"
-#include"../Syntactical_Features/BlockLength.cpp"
+// #include"../Syntactical_Features/BlockLength.cpp"
+#include"../Syntactical_Features/Nesting.cpp"
 #include"../Syntactical_Features/LongChain.cpp"
+#include"ConditionCount.cpp"
+#include"LoopCount.cpp"
 using namespace std;
 
 
-int funct(){
+// int main(){
 
 
 
@@ -89,58 +91,42 @@ int funct(){
         "memcmp"
     };
 
+    // string filename = "newfile.c";
 
-    int totalLine = 0;
-    int numOfKeyword = 0;
-    int numOfDirectives = 0;
-    int numOfIdentifier = 0;
-    int numOfDataType = 0;
-    int numOfCommentLine = 0;
-    int numOfFunctionPrototype = 0;
-    int numOfFunctionDefinition = 0;
-    int numOfLibraryFunction = 0;
-    int numOfFunctionParameter = 0;
-    int numOfMacro = 0;
-    int numOfOperator = 0;
-    int numOfLoop = 0;
-    int numOfCondition = 0;
-    int numOfVariable = 0;
-    int numOfTypeCast = 0;
-    int numOfGlobalVariable = 0;
-    int numOfLineSpacingAroundOperators = 0;
-    int maxFunctionLength = 0;
-    int maxNestingLevel = 0;
-    int maxVarDeclared = 0;
-    double averageVariableLength = 0.0;
-    double averageFunctionLength = 0.0;
-    double averageFunctionNameLength = 0.0;
-    double averageNestingLevel = 0.0;
-    double averageVarDeclare = 0.0;
+    int totalLine;
+    // int numOfKeyword = getTotalKeyword(filename,Keywords);
+    // int numOfDirectives = getTotalDirective(filename);
+    // int numOfIdentifier = getTotalIdentifier(filename,Keywords);
+    // int numOfDataType = getTotalDataTyep(filename,dataType);
+    // int numOfCommentLine = getTotalComment(filename);
+    // int numOfFunctionPrototype = getTotalFunctionPrototype(filename,dataType,functionName);
+    // int numOfFunctionDefinition = getTotalFunctionDefinition(filename,dataType,functionName);
+    // int numOfLibraryFunction = getTotalLibraryFunction(filename,commonLibraryFunctions);
+    // int numOfFunctionParameter = getTotalFunctionParaMeter(filename,dataType);
+    // int numOfMacro = getTotalMacro(filename);
+    // int numOfOperator = getTotalOperator(filename);
+    // int numOfLoop = getTotalLoop(filename);
+    // int numOfCondition = getTotalCondition(filename);
+    // int numOfVariable = getTotalVariable(filename,functionName,declaredVariables,dataType,commonLibraryFunctions);
+    // int numOfTypeCast = getTotalTypeCast(filename,dataType);
+    // int numOfGlobalVariable = getTotalGlobalVariable(filename,dataType,functionName);
+    // int numOfLineSpacingAroundOperators = getTotalLineSpacingAroundOperators(filename,operators);
+    // int maxFunctionLength = 0;
+    // int maxNestingLevel = 0;
+    // int maxVarDeclared = 0;
+    // double averageVariableLength = getAverageVariableLength(declaredVariables);
+    // double averageFunctionLength = getAverageLengthOfFunctionName(functionName);
+    // double averageFunctionNameLength = 0.0;
+    // double averageNestingLevel = 0.0;
+    // double averageVarDeclare = 0.0;
 
-    string filename = "newfile.c";
-
-
-    // getTotalLine(filename,totalLine);
-    // getTotalKeyword(filename,numOfKeyword,Keywords);
-    // getTotalDirective(filename,numOfDirectives);
-    // getTotalDataTyep(filename,numOfDataType,dataType);
-    // getTotalIdentifier(filename,numOfIdentifier,Keywords);
-    // getTotalComment(filename,numOfCommentLine);
-    // getTotalFunctionPrototype(filename,numOfFunctionPrototype,dataType,functionName);
-    // getTotalFunctionDefinition(filename,numOfFunctionDefinition,dataType,functionName);
-    // getTotalLibraryFunction(filename,numOfLibraryFunction,commonLibraryFunctions);
-    // getTotalFunctionParaMeter(filename,numOfFunctionParameter,dataType);
-    // getTotalMacro(filename,numOfMacro);
-    // getTotalOperator(filename,numOfOperator);
-    // getTotalLoopCondition(filename,numOfLoop,numOfCondition);
-    // getTotalVariable(filename,numOfVariable,functionName,declaredVariables,dataType,commonLibraryFunctions);
-    // getTotalTypeCast(filename,numOfTypeCast,dataType);
-    // getTotalGlobalVariable(filename,numOfGlobalVariable,dataType,functionName);
-    // getAverageVariableLength(declaredVariables,averageVariableLength);
-    // getTotalLineSpacingAroundOperators(filename,numOfLineSpacingAroundOperators,operators);
-    // getAverageLengthOfFunctionName(averageFunctionNameLength,functionName);
+    // vector <int> v = blockLength(filename);
+    // maxNestingLevel = *max_element(v.begin(),v.end());
+    // double total = 0.0;
+    // total = accumulate(v.begin(),v.end(),total);
+    // averageNestingLevel = total/v.size();
     // functionLength(filename,0,dataType,averageFunctionLength,maxFunctionLength);
-    // blockLength(filename,maxNestingLevel,averageNestingLevel);
+    // // blockLength(filename,maxNestingLevel,averageNestingLevel);
     // longChainDeclaration(filename,maxVarDeclared,averageVarDeclare,dataType,declaredVariables);
 
 
@@ -171,5 +157,5 @@ int funct(){
     // cout << "24.MaximumNestingLevel = " << maxNestingLevel << endl;
     // cout << "25 MaximumVarDeclaration = " << maxVarDeclared << endl;
     // cout << "26 AverageVarDeclaration = " << averageVarDeclare << endl;
-    return 0;
-}
+//     return 0;
+// }
