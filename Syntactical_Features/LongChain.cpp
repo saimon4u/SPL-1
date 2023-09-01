@@ -18,7 +18,7 @@ void longChainDeclaration(string &filename,int &maxVarDeclare,double &averageVar
     while(getline(file,line)){
         len = 0;
         if(line.find("(") != string::npos || line.find("{") != string::npos)continue;
-        if(isDataType(line,dataType)){
+        if(inDataType(line,dataType)){
             string variableName = "";
             int pos = 0;
             while(line[pos]==' ')pos++;
