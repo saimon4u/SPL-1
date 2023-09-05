@@ -1,19 +1,7 @@
-#include<bits/stdc++.h>
-#include"../Lexical _Feature/Extractor.cpp"
-#include"../Analysis/standardDeviation.cpp"
-#include"../Analysis/outliers.cpp"
-#include<filesystem>
 using namespace std;
-int main(){
-    string path = filesystem::current_path().string() + "/file";
-    vector<vector<double>> features = extractor(path);
-    vector<vector<double>> tausif = extractor("../");
-    // for(auto f: features){
-    //     for(auto v: f){
-    //         printf("%.1lf ",v);
-    //     }
-    //     cout << endl;
-    // }
+double saimon(vector <double> &vec){
+    string path = "../Saimon/file/";
+    vector<vector<double>> features = extractor(path,"");
     vector <double> dev;
     vector <double> mean;
     for(int i=1; i<features.size(); i++){
@@ -23,10 +11,11 @@ int main(){
     int c = 0;
     for(int i=0; i<dev.size(); i++){
         // cout << setprecision(2) << "mean = " << mean[i]-dev[i] << '\t' << "dev = " << mean[i] + dev[i] << '\t' << tausif[i][0] << '\t';
-        // ((tausif[i][0] <= mean[i]-(3*dev[i])) || (tausif[i][0] >= mean[i]+(3*dev[i]))) ? c=c : c++;
+        // ((vec[i] <= mean[i]-(3*dev[i])) || (vec[i] >= mean[i]+(3*dev[i]))) ? c=c : c++;
         // cout << endl;
-        // if(detectOutliers(features[i],tausif[i][0]))c++;
-        if(((tausif[i][0]-mean[i])/(dev[i]/sqrt(dev.size())))<=3)c++;
+        // if(detectOutliers(features[i],vec[i]))c++;
+        if(((vec[i]-mean[i])/(dev[i])/sqrt(dev.size()))<=2)c++;
     }
-    cout << ((c*100.0)/mean.size()) << endl;
+    double res =((c*100.0)/mean.size());
+    return res;
 }
