@@ -5,7 +5,7 @@
 #include<filesystem>
 using namespace std;
 int main(){
-    string path = filesystem::current_path().string();
+    string path = filesystem::current_path().string() + "/file";
     vector<vector<double>> features = extractor(path);
     vector<vector<double>> tausif = extractor("../");
     // for(auto f: features){
@@ -26,16 +26,7 @@ int main(){
         // ((tausif[i][0] <= mean[i]-(3*dev[i])) || (tausif[i][0] >= mean[i]+(3*dev[i]))) ? c=c : c++;
         // cout << endl;
         // if(detectOutliers(features[i],tausif[i][0]))c++;
-        if(((tausif[i][0]-mean[i])/dev[i])<=3)c++;
+        if(((tausif[i][0]-mean[i])/(dev[i]/sqrt(dev.size())))<=3)c++;
     }
     cout << ((c*100.0)/mean.size()) << endl;
-    // string f[2];
-    // f[0] = "../tausif.c";
-    // f[1] = "../tausif2.c";
-    // for(auto f: tausif){
-    //     for(auto v: f){
-    //         printf("%lf ",v);
-    //     }
-    //     cout << endl;
-    // }
 }
