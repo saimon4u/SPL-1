@@ -1,11 +1,6 @@
-#include<bits/stdc++.h>
-#include"../Analysis/standardDeviation.cpp"
-#include"../Analysis/outliers.cpp"
-#include"../Analysis/getDeviation.cpp"
-#include<filesystem>
 using namespace std;
-double yasin(vector <double> &vec){
-    string path = "../Yasin/file/";
+double shaikh(vector <double> &vec){
+    string path = "../Shaikh/file/";
     vector<vector<double>> features = extractor(path);
     vector <double> dev;
     vector <double> mean;

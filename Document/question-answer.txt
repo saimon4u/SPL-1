@@ -1,0 +1,21 @@
+-> Static code analysis?
+Static analysis, also called static code analysis, is a method of computer program debugging that is done by examining the code without executing the program. The process provides an understanding of the code structure and can help ensure that the code adheres to industry standards.
+
+->What is ghostwriting?
+The common definition of ghostwriting is the act of one person writing in the name of another person, group, company, or institution without receiving a byline or public credit.
+
+->What is plagiarism?
+Presenting work or ideas from another source as your own, without consent of the original author, by incorporating it into your work without full acknowledgement.
+
+-> What is Empirical rule?
+The Empirical Rule states that 99.7% of data observed following a normal distribution lies within 3 standard deviations of the mean. Under this rule, 68% of the data falls within one standard deviation, 95% percent within two standard deviations of the mean.
+
+->What is z-score?
+Z-score is a statistical measurement that describes a value's relationship to the mean of a group of values.
+
+->What is cosine similarity?
+Cosine similarity measures the similarity between two vectors of an inner product space. It is measured by the cosine of the angle between two vectors and determines whether two vectors are pointing in roughly the same direction. It is often used to measure document similarity in text analysis.
+
+-> What is CFG?
+In computer science, a control-flow graph (CFG) is a representation, using graph notation, of all paths that might be traversed through a program during its execution.
+

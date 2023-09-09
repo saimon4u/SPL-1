@@ -10,8 +10,8 @@ bool detectOutliers(vector<double>& x,double val){
     double IQR = q3 - q1;
     
     // Define lower and upper bounds for outliers
-    double lowerBound = q1 - 1.5 * IQR;
-    double upperBound = q3 + 1.5 * IQR;
+    double lowerBound = q1 - .5 * IQR;
+    double upperBound = q3 + .5 * IQR;
     
     // Detect outliers
 

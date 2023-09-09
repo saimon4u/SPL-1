@@ -16,7 +16,8 @@ double normalize(int x,int y){
     double res = (x*1.0)/y;
     return res;
 }
-vector<vector<double>> extractor(string directoryPath,string type){
+int p=0;
+vector<vector<double>> extractor(string directoryPath){
     // string directoryPath = filesystem::current_path().string();
     vector <string> fileName;
     vector <string> printName;
@@ -43,7 +44,6 @@ vector<vector<double>> extractor(string directoryPath,string type){
     vector <double> averageFunLen;
     vector <vector <double> > features;
     for(auto f: fileName){
-        // cout << f << endl;
         lineCount.push_back(getTotalLine(f));
         keywordCount.push_back(normalize(getTotalKeyword(f,Keywords),getTotalLine(f)));
         directiveCount.push_back(normalize(getTotalDirective(f),getTotalLine(f)));
@@ -67,41 +67,42 @@ vector<vector<double>> extractor(string directoryPath,string type){
         averageVarLen.push_back(getAverageVariableLength(declaredVariables));
         averageFunLen.push_back(getAverageLengthOfFunctionName(functionName));
     }
-    if(type == "test"){
-        vector<double> vec;
-        for(int i = 0; i < fileName.size(); i++){
-            // vec.push_back(lineCount[i]);
-            vec.push_back(keywordCount[i]);
-            vec.push_back(directiveCount[i]);
-            vec.push_back(identifierCount[i]);
-            vec.push_back(datatypeCount[i]);
-            vec.push_back(commentCount[i]);
-            vec.push_back(prototypeCount[i]);
-            vec.push_back(definitionCount[i]);
-            vec.push_back(libraryCount[i]);
-            vec.push_back(parameterCount[i]);
-            vec.push_back(macroCount[i]);
-            vec.push_back(operatorCount[i]);
-            vec.push_back(loopCount[i]);
-            vec.push_back(conditionCount[i]);
-            vec.push_back(varCount[i]);
-            vec.push_back(typecastCount[i]);
-            vec.push_back(globalCount[i]);
-            vec.push_back(spacingOperators[i]);
-            vec.push_back(averageVarLen[i]);
-            vec.push_back(averageFunLen[i]);
-            features.push_back(vec);
-            vec.clear();
-        }
+    vector<double> vec;
+    for(int i = 0; i < fileName.size(); i++){
+        // vec.push_back(lineCount[i]);
+        vec.push_back(keywordCount[i]);
+        vec.push_back(directiveCount[i]);
+        vec.push_back(identifierCount[i]);
+        vec.push_back(datatypeCount[i]);
+        vec.push_back(commentCount[i]);
+        vec.push_back(prototypeCount[i]);
+        vec.push_back(definitionCount[i]);
+        vec.push_back(libraryCount[i]);
+        vec.push_back(parameterCount[i]);
+        vec.push_back(macroCount[i]);
+        vec.push_back(operatorCount[i]);
+        vec.push_back(loopCount[i]);
+        vec.push_back(conditionCount[i]);
+        vec.push_back(varCount[i]);
+        vec.push_back(typecastCount[i]);
+        vec.push_back(globalCount[i]);
+        vec.push_back(spacingOperators[i]);
+        vec.push_back(averageVarLen[i]);
+        vec.push_back(averageFunLen[i]);
+        features.push_back(vec);
+        vec.clear();
+    }
+    if(p==0){
         for(auto p: printName){
             cout << p << endl;
         }
         cout << endl << endl;
+        p++;
     }
-    else {
-        features = {keywordCount,directiveCount,identifierCount,datatypeCount,commentCount,prototypeCount,definitionCount,
-                libraryCount,parameterCount,macroCount,operatorCount,loopCount,conditionCount,varCount,typecastCount,
-                globalCount,spacingOperators,averageVarLen,averageFunLen};
-    }
+    // else {
+    //     features = {keywordCount,directiveCount,identifierCount,datatypeCount,commentCount,prototypeCount,definitionCount,
+    //             libraryCount,parameterCount,macroCount,operatorCount,loopCount,conditionCount,varCount,typecastCount,
+    //             globalCount,spacingOperators,averageVarLen,averageFunLen};
+    // }
     return features;
 }
