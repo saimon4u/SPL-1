@@ -5,9 +5,10 @@
 #include"../Analysis/cosineSimilarity.cpp"
 #include<filesystem>
 using namespace std;
+vector<vector<double>> features;
 double yasin(vector <double> &vec){
     string path = "../Yasin/file/";
-    vector<vector<double>> features = extractor(path);
+    features = extractor(path);
     vector <double> dev;
     vector <double> mean;
     stdDeviation(features,mean,dev);
@@ -24,4 +25,8 @@ double yasin(vector <double> &vec){
     // res /= features.size();
     res =((c*100.0)/mean.size());
     return res;
+}
+vector<vector<double>> getYasinVal(){
+    string path = "../Yasin/file/";
+    return features = extractor(path);
 }
