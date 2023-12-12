@@ -42,30 +42,150 @@ vector<vector<double>> extractor(string directoryPath){
     vector <double> spacingOperators;
     vector <double> averageVarLen;
     vector <double> averageFunLen;
+    
+
+
+
+    vector <double> braceFollow;
+    vector <double> braceNext;
+    vector <double> spaceLine;
+    vector <double> tabLine;
+
+
+
+    vector <double> maximumNesting;
+    vector <double> averageNesting;
+    vector <double> maximumDeclare;
+    vector <double> averageDeclare;
+
     vector <vector <double> > features;
+    double val,avgNest,avgDec;
+    int maxNest,maxDec;
     for(auto f: fileName){
-        lineCount.push_back(getTotalLine(f));
-        keywordCount.push_back(normalize(getTotalKeyword(f,Keywords),getTotalLine(f)));
+        val = getTotalLine(f);
+        if(isnan(val)) lineCount.push_back(0);
+        else lineCount.push_back(val);
+
+        val = getTotalKeyword(f,Keywords);
+        if(isnan(val)) keywordCount.push_back(0);
+        else keywordCount.push_back(normalize(val,getTotalLine(f)));
         directiveCount.push_back(normalize(getTotalDirective(f),getTotalLine(f)));
-        identifierCount.push_back(normalize(getTotalIdentifier(f,Keywords),getTotalLine(f)));
-        datatypeCount.push_back(normalize(getTotalDataTyep(f,dataType),getTotalLine(f)));
-        commentCount.push_back(normalize(getTotalComment(f),getTotalLine(f)));
+
+
+        val = getTotalDirective(f);
+        if(isnan(val)) directiveCount.push_back(0);
+        else directiveCount.push_back(normalize(val,getTotalLine(f)));
+
+
+        val = getTotalIdentifier(f,Keywords);
+        if(isnan(val)) identifierCount.push_back(0);
+        else identifierCount.push_back(normalize(val,getTotalLine(f)));
+
+
+        val = getTotalDataTyep(f,dataType);
+        if(isnan(val)) datatypeCount.push_back(0);
+        else datatypeCount.push_back(normalize(val,getTotalLine(f)));
+
+
+        val = getTotalComment(f);
+        if(isnan(val)) commentCount.push_back(0);
+        else commentCount.push_back(normalize(val,getTotalLine(f)));
+
+
         functionName.clear();
-        prototypeCount.push_back(normalize(getTotalFunctionPrototype(f,dataType,functionName),getTotalLine(f)));
-        definitionCount.push_back(normalize(getTotalFunctionDefinition(f,dataType,functionName),getTotalLine(f)));
-        libraryCount.push_back(normalize(getTotalLibraryFunction(f,commonLibraryFunctions),getTotalLine(f)));
-        parameterCount.push_back(normalize(getTotalFunctionParaMeter(f,dataType),getTotalLine(f)));
-        macroCount.push_back(normalize(getTotalMacro(f),getTotalLine(f)));
-        operatorCount.push_back(normalize(getTotalOperator(f),getTotalLine(f)));
-        loopCount.push_back(normalize(getTotalLoop(f),getTotalLine(f)));
-        conditionCount.push_back(normalize(getTotalCondition(f),getTotalLine(f)));
+        val = getTotalFunctionPrototype(f,dataType,functionName);
+        if(isnan(val)) prototypeCount.push_back(0);
+        else prototypeCount.push_back(normalize(val,getTotalLine(f)));
+
+
+        val = getTotalFunctionDefinition(f,dataType,functionName);
+        if(isnan(val)) definitionCount.push_back(0);
+        else definitionCount.push_back(normalize(val,getTotalLine(f)));
+
+
+        val = getTotalLibraryFunction(f,commonLibraryFunctions);
+        if(isnan(val)) libraryCount.push_back(0);
+        else libraryCount.push_back(normalize(val,getTotalLine(f)));
+
+
+        val = getTotalFunctionParaMeter(f,dataType);
+        if(isnan(val)) parameterCount.push_back(0);
+        else parameterCount.push_back(normalize(val,getTotalLine(f)));
+
+
+        val = getTotalMacro(f);
+        if(isnan(val)) macroCount.push_back(0);
+        else macroCount.push_back(normalize(val,getTotalLine(f)));
+
+        val = getTotalOperator(f);
+        if(isnan(val)) operatorCount.push_back(0);
+        else operatorCount.push_back(normalize(val,getTotalLine(f)));
+
+        val = getTotalLoop(f);
+        if(isnan(val)) loopCount.push_back(0);
+        else loopCount.push_back(normalize(val,getTotalLine(f)));
+
+        val = getTotalCondition(f);
+        if(isnan(val)) conditionCount.push_back(0);
+        else conditionCount.push_back(normalize(val,getTotalLine(f)));
+
         declaredVariables.clear();
-        varCount.push_back(normalize(getTotalVariable(f,functionName,declaredVariables,dataType,commonLibraryFunctions),getTotalLine(f)));
-        typecastCount.push_back(normalize(getTotalTypeCast(f,dataType),getTotalLine(f)));
-        globalCount.push_back(normalize(getTotalGlobalVariable(f,dataType,functionName),getTotalLine(f)));
-        spacingOperators.push_back(normalize(getTotalLineSpacingAroundOperators(f,operators),getTotalLine(f)));
-        averageVarLen.push_back(getAverageVariableLength(declaredVariables));
-        averageFunLen.push_back(getAverageLengthOfFunctionName(functionName));
+        val = getTotalVariable(f,functionName,declaredVariables,dataType,commonLibraryFunctions);
+        if(isnan(val)) varCount.push_back(0);
+        else varCount.push_back(normalize(val,getTotalLine(f)));
+
+        val = getTotalTypeCast(f,dataType);
+        if(isnan(val)) typecastCount.push_back(0);
+        else typecastCount.push_back(normalize(val,getTotalLine(f)));
+
+        val = getTotalGlobalVariable(f,dataType,functionName);
+        if(isnan(val)) globalCount.push_back(0);
+        else globalCount.push_back(normalize(val,getTotalLine(f)));
+        
+
+        val = getTotalLineSpacingAroundOperators(f,operators);
+        if(isnan(val)) spacingOperators.push_back(0);
+        else spacingOperators.push_back(normalize(val,getTotalLine(f)));
+
+        val = getAverageVariableLength(declaredVariables);
+        if(isnan(val)) averageVarLen.push_back(0);
+        else averageVarLen.push_back(val);
+
+        val = getAverageLengthOfFunctionName(functionName);
+        if(isnan(val)) averageFunLen.push_back(0);
+        else averageFunLen.push_back(val);
+
+
+
+
+
+
+        if(followingCurlyBrace(f))braceFollow.push_back(1);
+        else braceFollow.push_back(0);
+        if(nextlineCurlyBrace(f))braceNext.push_back(1);
+        else braceNext.push_back(0);
+        if(spaceStartLine(f))spaceLine.push_back(1);
+        else spaceLine.push_back(0);
+        if(tabStartLine(f))tabLine.push_back(1);
+        else tabLine.push_back(0);
+
+
+
+
+        blockLength(f,maxNest,avgNest);
+        if(isnan(maxNest)) maximumNesting.push_back(0);
+        else maximumNesting.push_back(maxNest);
+        if(isnan(avgNest)) averageNesting.push_back(0);
+        else averageNesting.push_back(avgNest);
+
+
+
+        longChainDeclaration(f,maxDec,avgDec,dataType,declaredVariables);
+        if(isnan(maxDec)) maximumDeclare.push_back(0);
+        else maximumDeclare.push_back(maxDec);
+        if(isnan(avgDec)) averageDeclare.push_back(0);
+        else averageDeclare.push_back(avgDec);
+
     }
     vector<double> vec;
     for(int i = 0; i < fileName.size(); i++){
@@ -89,6 +209,14 @@ vector<vector<double>> extractor(string directoryPath){
         vec.push_back(spacingOperators[i]);
         vec.push_back(averageVarLen[i]);
         vec.push_back(averageFunLen[i]);
+        vec.push_back(braceFollow[i]);
+        vec.push_back(braceNext[i]);
+        vec.push_back(spaceLine[i]);
+        vec.push_back(tabLine[i]);
+        vec.push_back(maximumNesting[i]);
+        vec.push_back(averageNesting[i]);
+        vec.push_back(maximumDeclare[i]);
+        vec.push_back(averageDeclare[i]);
         features.push_back(vec);
         vec.clear();
     }

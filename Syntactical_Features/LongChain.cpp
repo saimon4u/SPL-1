@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-bool inDataType(string line,set<string> &dataType){
+bool innDataType(string line,set<string> &dataType){
     for(auto dt:dataType){
         if(line.find(dt) != string::npos)return true;
     }
@@ -18,7 +18,7 @@ void longChainDeclaration(string &filename,int &maxVarDeclare,double &averageVar
     while(getline(file,line)){
         len = 0;
         if(line.find("(") != string::npos || line.find("{") != string::npos)continue;
-        if(inDataType(line,dataType)){
+        if(innDataType(line,dataType)){
             string variableName = "";
             int pos = 0;
             while(line[pos]==' ')pos++;

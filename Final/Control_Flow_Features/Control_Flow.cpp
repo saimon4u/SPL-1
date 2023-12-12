@@ -51,7 +51,7 @@ vector<string> segmentation(string filename){
 vector<int> closing_curly_braces(string filename){
     vector <string> lines;
     lines = segmentation(filename);
-    vector<int> closing_braces(40,0);
+    vector<int> closing_braces(500,0);
     vector<int> openning_braces(2000,0);
     vector <int> store;
     int last_open_brace;
@@ -65,7 +65,6 @@ vector<int> closing_curly_braces(string filename){
             }
             else if(l == '}'){
                 last_open_brace = store.back();
-                cout << last_open_brace << endl;
                 store.pop_back();
                 closing_braces[last_open_brace]=i+1;
                 for(int a=last_open_brace+1; a<=closing_braces[last_open_brace]; a++){
@@ -89,9 +88,11 @@ vector<vector<int>>Graph(string filename){
 
     vector <vector<int>> Control_Graph(num_lines,vector<int>(num_lines,0));
     vector <int> closingBrace = closing_curly_braces(filename);
-    for(int i=0; i<closingBrace.size(); i++){
-        cout << i <<  " " << closingBrace[i] << endl;
-    }
+
+
+    // for(int i=0; i<closingBrace.size(); i++){
+    //     cout << i << ' ' << closingBrace[i] << endl;
+    // }
 
 
 
@@ -103,7 +104,6 @@ vector<vector<int>>Graph(string filename){
         Control_Graph[i][i+1]=1;
     }
 
-    
     for(int i=0; i<lines.size(); i++){
         for(auto dw: doWhile){
             if(i==dw) i++;
@@ -115,9 +115,9 @@ vector<vector<int>>Graph(string filename){
             else if(closingBrace[last_loop] != 0 && closingBrace[last_loop] < i)store_loop.pop_back();
         }
         for(int j=0; j<line.size(); j++){
-            if(j == line.size()-1 || line[j] == '(' || line[j] == ')' || line[j] == '{' || line[j] == '}'){
+            if(j == line.size()-1 || line[j] == '(' || line[j] == ')' || line[j] == '{' || line[j] == '}' || line[j] == ';'){
                 word = trim(word);
-                cout << word << endl;
+                // cout << word << endl;
                 if(word == "for" || word == "while"){
                     curr_line = i+1;
                     while(closingBrace[curr_line] == 0){
@@ -183,6 +183,7 @@ vector<vector<int>>Graph(string filename){
                     k = 1;
                     while(k){
                         d = closingBrace[next_else];
+                        // cout << d << endl;
                         string ss = "", compare = lines[d];
                         k = 0;
                         for(int p=0; p<compare.size(); p++){
@@ -259,25 +260,25 @@ vector<vector<int>>Graph(string filename){
 
 
 
-string removeExtraSpacesAndSemicolons(const string& input) {
-    // Remove extra spaces
-    regex spaceRegex("\\s+");
-    string noExtraSpaces = regex_replace(input, spaceRegex, " ");
+// string removeExtraSpacesAndSemicolons(const string& input) {
+//     // Remove extra spaces
+//     regex spaceRegex("\\s+");
+//     string noExtraSpaces = regex_replace(input, spaceRegex, " ");
 
-    // Remove semicolons
-    regex semicolonRegex("\\s*;\\s*");
-    return regex_replace(noExtraSpaces, semicolonRegex, "");
-}
-
-
+//     // Remove semicolons
+//     regex semicolonRegex("\\s*;\\s*");
+//     return regex_replace(noExtraSpaces, semicolonRegex, "");
+// }
 
 
-int main(){
-    string filename = "newfile.txt";
-    vector <vector<int>> G = Graph(filename);
-    for(int i=0; i<G.size(); i++){
-        for(int j=0; j<G[i].size(); j++){
-            if(G[i][j] != 0) cout << i << " " << j << endl;
-        }
-    }
-}
+
+
+// int main(){
+//     string filename = "newfile.txt";
+//     vector <vector<int>> G = Graph(filename);
+    // for(int i=0; i<G.size(); i++){
+    //     for(int j=0; j<G[i].size(); j++){
+    //         if(G[i][j] != 0) cout << i << " " << j << endl;
+    //     }
+    // }
+// }

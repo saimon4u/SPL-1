@@ -2,9 +2,15 @@ using namespace std;
 double saimon(vector <double> &vec){
     string path = "../Saimon/file/";
     vector<vector<double>> features = extractor(path);
+    // for(auto fe: features){
+    //     for(auto f: fe){
+    //         printf("%.2lf ",f);
+    //     }
+    //     cout << endl;
+    // }
     vector <double> dev;
     vector <double> mean;
-    stdDeviation(features,mean,dev);
+    // stdDeviation(features,mean,dev);
     int c = 0;
     double res = 0.0;
     for(int i=0; i<dev.size(); i++){
@@ -18,4 +24,9 @@ double saimon(vector <double> &vec){
     // res /= features.size();
     res =((c*100.0)/mean.size());
     return res;
+}
+vector<vector<double>> getSaimonVal(){
+    string path = "../Saimon/file/";
+    vector<vector<double>> vec = extractor(path);
+    return vec;
 }

@@ -1,6 +1,3 @@
-#include<bits/stdc++.h>
-#include<fstream>
-using namespace std;
 bool tabStartLine(string &filename){
     ifstream file(filename);
     if(!file.is_open()){

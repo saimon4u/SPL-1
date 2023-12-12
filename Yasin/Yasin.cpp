@@ -11,7 +11,7 @@ double yasin(vector <double> &vec){
     features = extractor(path);
     vector <double> dev;
     vector <double> mean;
-    stdDeviation(features,mean,dev);
+    // stdDeviation(features,mean,dev);
     int c = 0;
     double res = 0.0;
     for(int i=0; i<dev.size(); i++){

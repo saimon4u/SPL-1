@@ -183,13 +183,19 @@ int main(){
 
     vector<ProgrammerData> centroids = initializeCentroids(programmerData, NUM_CLUSTERS);
     vector<ProgrammerData> clusteredData = kMeansClustering(programmerData,centroids);
-    sort(clusteredData.begin(),clusteredData.end(),compare);
+    // sort(clusteredData.begin(),clusteredData.end(),compare);
     ProgrammerData data;
     data.matrix = initialize1DMatrix();
     data.position = 20;
-    addNewDataToCluster(data,centroids);
-    cout << data.cluster << endl;
-    for(auto cl: clusteredData){
-        cout << cl.position << " " << cl.cluster <<  endl;
+    for(auto dat: data.matrix){
+        for(auto d: dat){
+            cout << d << " ";
+        }
+        cout << endl;
     }
+    // addNewDataToCluster(data,centroids);
+    // cout << data.cluster << endl;
+    // for(auto cl: clusteredData){
+    //     cout << cl.position << " " << cl.cluster <<  endl;
+    // }
 }

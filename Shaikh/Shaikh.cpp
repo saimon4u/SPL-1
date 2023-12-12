@@ -4,7 +4,7 @@ double shaikh(vector <double> &vec){
     vector<vector<double>> features = extractor(path);
     vector <double> dev;
     vector <double> mean;
-    stdDeviation(features,mean,dev);
+    // stdDeviation(features,mean,dev);
     int c = 0;
     double res = 0.0;
     for(int i=0; i<dev.size(); i++){
@@ -18,4 +18,9 @@ double shaikh(vector <double> &vec){
     // res /= features.size();
     res =((c*100.0)/mean.size());
     return res;
+}
+vector<vector<double>> getShaikhVal(){
+    string path = "../Shaikh/file/";
+    vector<vector<double>> vec = extractor(path);
+    return vec;
 }

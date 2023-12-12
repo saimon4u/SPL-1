@@ -30,8 +30,13 @@
 // #include"../Syntactical_Features/BlockLength.cpp"
 #include"../Syntactical_Features/Nesting.cpp"
 #include"../Syntactical_Features/LongChain.cpp"
+#include"../Syntactical_Features/BlockLength.cpp"
 #include"ConditionCount.cpp"
 #include"LoopCount.cpp"
+#include"../Features/BraceFollow.cpp"
+#include"../Features/BraceNext.cpp"
+#include"../Features/SpaceLine.cpp"
+#include"../Features/TabLine.cpp"
 using namespace std;
 
 
