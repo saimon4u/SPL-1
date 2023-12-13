@@ -1,3 +1,3 @@
-int CyclomaticComplexity(int numNode,int numEdge,int numComponent){
-    return (numEdge - numNode + (2*numComponent));
+double CyclomaticComplexity(int numNode,double numEdge,double numComponent){
+    return (numEdge - numNode + (2*numComponent))*1.0;
 }

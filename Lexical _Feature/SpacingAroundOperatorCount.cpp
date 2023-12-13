@@ -18,7 +18,7 @@ int getTotalLineSpacingAroundOperators(string& filename,set<string> &operators){
                 break;
             }
         }
-        if(isspace(line[pos-1]) && isspace(line[pos+1])){
+        if(pos > 0 and isspace(line[pos-1]) and pos < line.size()-1 and isspace(line[pos+1])){
             hasSpacing = true;
         }
         if(foundOperator && hasSpacing){

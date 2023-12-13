@@ -23,8 +23,8 @@ int getTotalVariable(string& filename,set<string> &functionName,set<string> &dec
         // if(line.find("(") != string::npos || line.find("{") != string::npos)continue;
         string word = "";
         int pos = 0;
-        while(line[pos]==' ')pos++;
-        while(line[pos]!=' ')pos++;
+        while(pos < line.size() and line[pos]==' ')pos++;
+        while(pos < line.size() and line[pos]!=' ')pos++;
         if(isDataType(line,dataType)){
             string variableName = "";
             pos ++;

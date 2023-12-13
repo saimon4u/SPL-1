@@ -21,7 +21,7 @@ int calculateDepth(const vector<vector<int>>& graph, int startVertex){
     return maxDepth;
 }
 
-int DepthOfGraph(vector<vector<int>> &graph) {
+double DepthOfGraph(vector<vector<int>> &graph) {
     int startVertex = 1;
-    return calculateDepth(graph, startVertex);
+    return calculateDepth(graph, startVertex)*1.0;
 }

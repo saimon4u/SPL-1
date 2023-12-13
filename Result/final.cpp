@@ -5,7 +5,7 @@
 using namespace std;
 
 
-const int NUM_FEATURES = 27;
+const int NUM_FEATURES = 34;
 const int NUM_CLUSTERS = 4;
 const int NUM_FILES = 15;
 
@@ -51,23 +51,63 @@ double newEuclideanDistance(vector<vector<double>> &p1,vector<vector<double>> &p
 }
 
 
+// vector<ProgrammerData> initializeCentroids(vector<ProgrammerData> &data, int k){
+//     vector<ProgrammerData> centroids;
+//     random_device rd;
+//     mt19937 gen(rd());
+//     vector<ProgrammerData> shuffledData = data;
+//     shuffle(shuffledData.begin(), shuffledData.end(), gen);
+//     centroids.assign(shuffledData.begin(), shuffledData.begin() + k);
+//     // centroids.assign(shuffledData.begin(),shuffledData.begin()+k);
+//     int pos = 1;
+//     for(auto &cen: centroids){
+//         cen.cluster = pos++;
+//     }
+//     return centroids;
+// }
+
+
+
 vector<ProgrammerData> initializeCentroids(vector<ProgrammerData> &data, int k){
     vector<ProgrammerData> centroids;
     random_device rd;
     mt19937 gen(rd());
-    vector<ProgrammerData> shuffledData = data;
-    shuffle(shuffledData.begin(), shuffledData.end(), gen);
-    centroids.assign(shuffledData.begin(), shuffledData.begin() + k);
+    
+    centroids.push_back(data[0]);
+    for (int i = 1; i < k; ++i) {
+        vector<double> distances(data.size(), numeric_limits<double>::max());
+        for (int j = 0; j < data.size(); ++j) {
+            for (auto &cen : centroids) {
+                double distance = euclideanDistance(data[j].matrix, cen.matrix);
+                distances[j] = min(distances[j], distance);
+            }
+        }
+
+        // Select the next centroid with probability proportional to distance squared
+        discrete_distribution<int> distribution(distances.begin(), distances.end());
+        int nextCentroidIndex = distribution(gen);
+        centroids.push_back(data[nextCentroidIndex]);
+    }
+    shuffle(centroids.begin(), centroids.end(), gen);
     int pos = 1;
-    for(auto &cen: centroids){
+    for (auto &cen : centroids) {
         cen.cluster = pos++;
     }
+
     return centroids;
 }
 
 
+
+
+
+
+
+
+
 void assignToClusters(vector<ProgrammerData>& data,vector<ProgrammerData>& centroids){
     for(auto &point : data){
+            // cout << "minDistance" << endl;
         double minDistance = numeric_limits<double>::max();
         for(auto &centroid : centroids){
             double distance = euclideanDistance(point.matrix, centroid.matrix);
@@ -108,15 +148,18 @@ void updateCentroids(vector<ProgrammerData>& centroids,vector<ProgrammerData>& d
 }
 
 bool clustersChanged(vector<ProgrammerData>& oldCentroids,vector<ProgrammerData>& newCentroids){
-    if(oldCentroids.empty()) return true;
-    for(int i=0; i<NUM_CLUSTERS; ++i) if(euclideanDistance(oldCentroids[i].matrix,newCentroids[i].matrix) > 10e-6) return true;
+    if(oldCentroids.empty()){
+        return true;
+    }
+    for(int i=0; i<NUM_CLUSTERS; ++i) if(euclideanDistance(oldCentroids[i].matrix,newCentroids[i].matrix) > 10e-4) return true;
     return false;
 }
 
 vector<ProgrammerData> kMeansClustering(vector<ProgrammerData> &data,vector<ProgrammerData> &copyCentoroids){
     vector<ProgrammerData> centroids = initializeCentroids(data, NUM_CLUSTERS);
+
     vector<ProgrammerData> oldCentroids;
-    while (clustersChanged(oldCentroids, centroids)){
+    while(clustersChanged(oldCentroids, centroids)){
         oldCentroids = centroids;
         assignToClusters(data, centroids);
         updateCentroids(centroids, data);
@@ -150,6 +193,7 @@ void addNewDataToCluster(ProgrammerData &data,vector<ProgrammerData>& centroids)
 
 int main(){
     srand(time(0));
+
     string path = filesystem::current_path().string();
     vector<vector<double>> vec = extractor(path);
     vector<ProgrammerData> programmerData(8);
@@ -177,17 +221,18 @@ int main(){
     programmerData[7].name = "Tashrif";
 
     vector<ProgrammerData> centroids = initializeCentroids(programmerData, NUM_CLUSTERS);
-
-
-
-
+    // cout << "hello" << endl;
 
     vector<ProgrammerData> clusteredData = kMeansClustering(programmerData,centroids);
+    // cout << "bye" << endl;
     sort(clusteredData.begin(),clusteredData.end(),compare);
-    vector<ProgrammerData> data(4);
-    for(int i=0; i<4; i++){
+    const int numNewData = 1;
+    vector<ProgrammerData> data(numNewData);
+
+
+    for(int i=0; i<numNewData; i++){
         data[i].position = pos++;
-        data[i].name = "New" + to_string(data[i].position);
+        data[i].name = "File->" + to_string(data[i].position);
         vector<double> matrix(NUM_FEATURES);
         for(int k=0; k<vec[i].size(); k++){
             matrix[k] = vec[i][k];
@@ -195,14 +240,14 @@ int main(){
         data[i].matrix.push_back(matrix);
         addNewDataToCluster(data[i],centroids);
     }
-    for(int i=0; i<4; i++){
-        cout << data[i].name << " " << data[i].cluster << endl;
+    cout << "Your test file is in cluster -> " << data[0].cluster << endl << endl;
+    for(int i=0; i<numNewData; i++){
+        cout << "Expected Programmer's are: " << endl;
         for(auto cl: clusteredData){
             if(data[i].cluster == cl.cluster){
-                cout << cl.name << ' ' << cl.cluster << endl;
+                cout << cl.name << endl;
             }
         }
         cout << endl;
     }
-
 }

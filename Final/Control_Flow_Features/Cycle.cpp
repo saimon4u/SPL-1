@@ -30,7 +30,7 @@ vector<vector<int>> findAllCycles(const vector<vector<int>>& graph){
     return cycles;
 }
 
-int numCycle(vector<vector<int>> &graph) {
+double numCycle(vector<vector<int>> &graph) {
     vector<vector<int>> cycles = findAllCycles(graph);
-    return cycles.size();
+    return cycles.size()*1.0;
 }

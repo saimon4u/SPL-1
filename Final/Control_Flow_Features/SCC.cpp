@@ -47,7 +47,7 @@ vector<vector<int>> findStronglyConnectedComponents(const vector<vector<int>>& g
     }
     return stronglyConnectedComponents;
 }
-int ConnectedComponents(vector<vector<int>> graph) {
+double ConnectedComponents(vector<vector<int>> graph) {
     vector<vector<int>> stronglyConnectedComponents = findStronglyConnectedComponents(graph);
-    return stronglyConnectedComponents.size();
+    return stronglyConnectedComponents.size()*1.0;
 }

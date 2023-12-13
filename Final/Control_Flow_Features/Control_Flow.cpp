@@ -4,7 +4,7 @@
 using namespace std;
 
 
-string trim(string word){
+string word_trim(string word){
     string newWord;
     for(int i=0; i<word.size(); i++){
         if(word[i]!=' '){
@@ -51,7 +51,7 @@ vector<string> segmentation(string filename){
 vector<int> closing_curly_braces(string filename){
     vector <string> lines;
     lines = segmentation(filename);
-    vector<int> closing_braces(500,0);
+    vector<int> closing_braces(2000,0);
     vector<int> openning_braces(2000,0);
     vector <int> store;
     int last_open_brace;
@@ -67,9 +67,9 @@ vector<int> closing_curly_braces(string filename){
                 last_open_brace = store.back();
                 store.pop_back();
                 closing_braces[last_open_brace]=i+1;
-                for(int a=last_open_brace+1; a<=closing_braces[last_open_brace]; a++){
-                    if(closing_braces[a] == 0)closing_braces[a] = closing_braces[last_open_brace];
-                }
+                // for(int a=last_open_brace+1; a<=closing_braces[last_open_brace]; a++){
+                //     if(closing_braces[a] == 0)closing_braces[a] = closing_braces[last_open_brace];
+                // }
             }
         }
 
@@ -91,7 +91,7 @@ vector<vector<int>>Graph(string filename){
 
 
     // for(int i=0; i<closingBrace.size(); i++){
-    //     cout << i << ' ' << closingBrace[i] << endl;
+    //     if(closingBrace[i] != 0)cout << i << ' ' << closingBrace[i] << endl;
     // }
 
 
@@ -103,10 +103,18 @@ vector<vector<int>>Graph(string filename){
     for(int i=1; i<num_lines-1; i++){
         Control_Graph[i][i+1]=1;
     }
-
+    
+    bool skipLine = false;
     for(int i=0; i<lines.size(); i++){
+        if(skipLine){
+            skipLine = false;
+            continue;
+        }
         for(auto dw: doWhile){
-            if(i==dw) i++;
+            if(i == dw) {
+                skipLine = true;
+                break;
+            }   
         }
         line = lines[i];
         if(store_loop.size() != 0){
@@ -115,9 +123,9 @@ vector<vector<int>>Graph(string filename){
             else if(closingBrace[last_loop] != 0 && closingBrace[last_loop] < i)store_loop.pop_back();
         }
         for(int j=0; j<line.size(); j++){
-            if(j == line.size()-1 || line[j] == '(' || line[j] == ')' || line[j] == '{' || line[j] == '}' || line[j] == ';'){
-                word = trim(word);
-                // cout << word << endl;
+            if(j == line.size()-1 || line[j] == '(' || line[j] == ')' || line[j] == '{' || line[j] == '}'){
+                // cout << word << "-> " << line[j] << endl;
+                word = word_trim(word);
                 if(word == "for" || word == "while"){
                     curr_line = i+1;
                     while(closingBrace[curr_line] == 0){
@@ -179,33 +187,80 @@ vector<vector<int>>Graph(string filename){
                     else Control_Graph[i+1][closingBrace[last_loop]+1] = 1;
                 }
                 else if(word == "if"){
-                    int next_else = i;
-                    k = 1;
-                    while(k){
-                        d = closingBrace[next_else];
-                        // cout << d << endl;
-                        string ss = "", compare = lines[d];
-                        k = 0;
-                        for(int p=0; p<compare.size(); p++){
-                            if(p == compare.size()-1 || compare[p] == ' ' || compare[p] == '(' || compare[p] == ')' || compare[p] == '{' || compare[p] == '}'){
-                                if(ss == "else"){
-                                    k = 1;
-                                    ss = "";
-                                    Control_Graph[i+1][d+1] = 1;
-                                    Control_Graph[d][d+1] = 0;
-                                    break;
+                    if (lines[i].find("{") != string::npos)
+                    {
+                        int next_else = i;
+                        k = 1;
+                        // cout << next_else << endl;
+                        while (k)
+                        {
+                            d = closingBrace[next_else + 1];
+                            string ss = "", compare = lines[d];
+                            // cout << compare << endl;
+                            k = 0;
+                            for (int p = 0; p < compare.size(); p++)
+                            {
+                                if (p == compare.size() - 1 || compare[p] == ' ' || compare[p] == '(' || compare[p] == ')' || compare[p] == '{' || compare[p] == '}')
+                                {
+                                    if (ss == "else")
+                                    {
+                                        k = 1;
+                                        ss = "";
+                                        Control_Graph[i + 1][d + 1] = 1;
+                                        Control_Graph[d][d + 1] = 0;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        ss = "";
+                                    }
                                 }
-                                else{
-                                    ss = "";
+                                else
+                                {
+                                    ss += compare[p];
                                 }
                             }
-                            else{
-                                ss += compare[p];
-                            }
+                            next_else = d;
                         }
-                        next_else = d;
+                        Control_Graph[i + 1][closingBrace[i + 1] + 1] = 1;
                     }
-                    Control_Graph[i+1][closingBrace[i+1] + 1] = 1;
+                    else
+                    {
+                        int next_else = i+1;
+                        k = 1;
+                        // cout << next_else << endl;
+                        while (k)
+                        {
+                            d = closingBrace[next_else + 2];
+                            string ss = "", compare = lines[d];
+                            // cout << compare << endl;
+                            k = 0;
+                            for (int p = 0; p < compare.size(); p++)
+                            {
+                                if (p == compare.size() - 1 || compare[p] == ' ' || compare[p] == '(' || compare[p] == ')' || compare[p] == '{' || compare[p] == '}')
+                                {
+                                    if (ss == "else")
+                                    {
+                                        k = 1;
+                                        ss = "";
+                                        Control_Graph[i + 2][d + 1] = 1;
+                                        Control_Graph[d][d + 1] = 0;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        ss = "";
+                                    }
+                                }
+                                else
+                                {
+                                    ss += compare[p];
+                                }
+                            }
+                            next_else = d;
+                        }
+                        Control_Graph[i + 2][closingBrace[i + 2] + 1] = 1;
+                    }
                 }
                 else if(word == "else if"){
                     Control_Graph[i+1][closingBrace[i+1]+1] = 1;
@@ -215,38 +270,92 @@ vector<vector<int>>Graph(string filename){
                     j+=2;
                 }
                 else if(word == "switch"){
-                    q = i+2;
-                    r = i;
-                    d = closingBrace[q];
-                    Control_Graph[q-1][q] = 0;
-                    Control_Graph[q][q+1] = 1;
-                    k = 1;
-                    while(k){
-                        string ss = "",compare = lines[q];
-                        for(int p=0; p<=compare.size(); p++){
-                            if(p == compare.size() || compare[p] == ' ' || compare[p] == '(' || compare[p] == ')' || compare[p] == '{' || compare[p] == '}'){
-                                if(ss == "case" || ss == "default"){
-                                    k = 1;
-                                    ss = "";
-                                    if(q != i+2) Control_Graph[r+1][q+1] = 1;
-                                    r = q;
-                                    break;
-                                }
-                                else if(ss == "break"){
-                                    k = 1;
-                                    ss = "";
-                                    Control_Graph[q+1][d+1] = 1;
-                                    break;
-                                }
-                                else{
-                                    ss += compare[p];
+                    if (lines[i].find("{") != string::npos)
+                    {
+                        q = i + 1;
+                        r = i;
+                        d = closingBrace[q];
+                        Control_Graph[q - 1][q] = 0;
+                        Control_Graph[q][q + 1] = 1;
+                        k = 1;
+                        while (k)
+                        {
+                            string ss = "", compare = lines[q];
+                            for (int p = 0; p <= compare.size(); p++)
+                            {
+                                if (p == compare.size() || compare[p] == ' ' || compare[p] == '(' || compare[p] == ')' || compare[p] == '{' || compare[p] == '}')
+                                {
+                                    if (ss == "case" || ss == "default")
+                                    {
+                                        k = 1;
+                                        ss = "";
+                                        if (q != i + 2)
+                                            Control_Graph[r + 1][q + 1] = 1;
+                                        r = q;
+                                        break;
+                                    }
+                                    else if (ss == "break")
+                                    {
+                                        k = 1;
+                                        ss = "";
+                                        Control_Graph[q + 1][d + 1] = 1;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        ss += compare[p];
+                                    }
                                 }
                             }
+                            q++;
+                            if (q == d)
+                                break;
                         }
-                        q++;
-                        if(q == d) break;
+                        i = d + 1;
                     }
-                    i = d+1;
+                    else
+                    {
+                        q = i + 2;
+                        r = i;
+                        d = closingBrace[q];
+                        Control_Graph[q - 1][q] = 0;
+                        Control_Graph[q][q + 1] = 1;
+                        k = 1;
+                        while (k)
+                        {
+                            string ss = "", compare = lines[q];
+                            for (int p = 0; p <= compare.size(); p++)
+                            {
+                                if (p == compare.size() || compare[p] == ' ' || compare[p] == '(' || compare[p] == ')' || compare[p] == '{' || compare[p] == '}')
+                                {
+                                    if (ss == "case" || ss == "default")
+                                    {
+                                        k = 1;
+                                        ss = "";
+                                        if (q != i + 2)
+                                            Control_Graph[r + 1][q + 1] = 1;
+                                        r = q;
+                                        break;
+                                    }
+                                    else if (ss == "break")
+                                    {
+                                        k = 1;
+                                        ss = "";
+                                        Control_Graph[q + 1][d + 1] = 1;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        ss += compare[p];
+                                    }
+                                }
+                            }
+                            q++;
+                            if (q == d)
+                                break;
+                        }
+                        i = d + 1;
+                    }
                 }
                 word = "";
             }
@@ -255,6 +364,7 @@ vector<vector<int>>Graph(string filename){
             }
         }
     }
+    // cout << "hello" << endl;
     return Control_Graph;
 }
 

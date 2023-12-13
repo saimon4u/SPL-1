@@ -34,7 +34,7 @@ int getTotalGlobalVariable(string& filename,set<string> &dataType,set<string> &f
         if(line.find("(") != string::npos || line.find("{") != string::npos)continue;
         string word = "";
         int pos = 0;
-        while(line[pos]!=' ')line[pos++];
+        while(pos < line.size() and line[pos]!=' ')line[pos++];
         if(isDataType(line,dataType)){
             string variableName = "";
             pos ++;

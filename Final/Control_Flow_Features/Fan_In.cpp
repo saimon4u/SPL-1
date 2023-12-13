@@ -1,3 +1,3 @@
-double FanIn(int numEdge,int numNode){
+double FanIn(double numEdge,int numNode){
     return (numEdge*1.0)/numNode;
 }

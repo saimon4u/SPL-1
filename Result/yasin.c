@@ -1,90 +1,56 @@
 #include<stdio.h>
-#include<stdlib.h>
-
+void conquer(int list[],int first,int mid,int last){
+    int n1=mid-first+1,n2=last-mid,lpos=first,rpos=mid+1,i,j,k;
+    int left[n1],right[n2];
+    for(i=0;i<n1;i++){
+        left[i]=list[lpos];
+        lpos++;
+    }
+    for(j=0;j<n2;j++){
+        right[j]=list[rpos];
+        rpos++;
+    }
+    i=0;
+    j=0;
+    k=first;
+    for( ;i<n1&&j<n2;k++){
+        if(left[i]<=right[j]){
+            list[k]=left[i];
+            i++;
+        }
+        else{
+            list[k]=right[j];
+            j++;
+        }
+    }
+    for( ;i<n1;i++){
+        list[k]=left[i];
+        k++;
+    }
+    for( ;j<n2;j++){
+        list[k]=right[j];
+        k++;
+    }
+}
+void divide(int list[],int first,int last){
+    if(first<last){
+        int mid;
+        mid=first+(last-first)/2;
+        divide(list,first,mid);
+        divide(list,mid+1,last);
+        conquer(list,first,mid,last);
+    }
+}
 int main(){
-    int n,i,j,k;
-    printf("Enter the number of variables: ");
+    int i,n;
     scanf("%d",&n);
-    double matA[n][n],matX[n],matB[n],pre,cur,sum;
-    printf("Enter the row-wise values for the augmented matrix:\n");
+    int list[n];
     for(i=0;i<n;i++){
-        for(j=0;j<n;j++){
-            scanf("%lf",&matA[i][j]);
-        }
-        scanf("%lf",&matB[i]);
+        scanf("%d",&list[i]);
     }
-    
-    for(i=0;i<n-1;i++){
-        cur=matA[i][i];
-        if(cur==0){
-            printf("Pivot is zero.\n");
-            return 0;
-        }
-        for(j=i+1;j<n;j++){
-            pre=matA[j][i];
-            for(k=0;k<n;k++){
-                matA[j][k]=(cur*matA[j][k])-(pre*matA[i][k]);
-            }
-            matB[j]=(cur*matB[j])-(pre*matB[i]);
-        }
-        if(matA[j][j]==0){
-            printf("Pivot is zero.\n");
-            return 0;
-        }
-    }
-
-
-
+    divide(list,0,n-1);
     for(i=0;i<n;i++){
-        cur=matA[i][i];
-        for(j=0;j<n;j++){
-            matA[i][j]/=cur;
-        }
-        matB[i]/=cur;
+        printf("%d ",list[i]);
     }
-    // for(i=0;i<n;i++){
-    //     printf("|");
-    //     for(j=0;j<n;j++){
-    //         printf("%.2lf\t",matA[i][j]);
-    //     }
-    //     printf("|\t|%.2lf\t|\n",matB[i]);
-    // }
-
-    printf("\n");
-    for(i=n-1;i>=1;i--){
-        cur=matA[i][i];
-        if(cur==0){
-            printf("Pivot is zero.\n");
-            return 0;
-        }
-        for(j=i-1;j>=0;j--){
-            pre=matA[j][i];
-            for(k=0;k<n;k++){
-                matA[j][k]=(cur*matA[j][k])-(pre*matA[i][k]);
-            }
-            matB[j]=(cur*matB[j])-(pre*matB[i]);
-        }
-        if(matA[j][j]==0){
-            printf("Pivot is zero.\n");
-            return 0;
-        }
-    }
-
-    for(i=0;i<n;i++){
-        printf("|");
-        for(j=0;j<n;j++){
-            printf("%.2lf\t",matA[i][j]);
-        }
-        printf("|\t|%.2lf\t|\n",matB[i]);
-    }
-
-    for(i=0;i<n;i++){
-        matX[i]=matB[i];
-    }
-    
-    for(i=0;i<n;i++){
-        printf("X%d: %.2lf\n",i+1,matX[i]);
-    }  
-
     return 0;
 }

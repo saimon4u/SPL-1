@@ -58,9 +58,20 @@ vector<vector<double>> extractor(string directoryPath){
     vector <double> maximumDeclare;
     vector <double> averageDeclare;
 
+
+
+    vector <double> numberCycle;
+    vector <double> numberComponents;
+    vector <double> numberEdges;
+    vector <double> cyclomaticVal;
+    vector <double> depth;
+    vector <double> fanIn;
+    vector <double> fanOut;
+
+
     vector <vector <double> > features;
-    double val,avgNest,avgDec;
-    int maxNest,maxDec;
+    double val = 0,avgNest = 0,avgDec = 0;
+    int maxNest = 0,maxDec = 0;
     for(auto f: fileName){
         val = getTotalLine(f);
         if(isnan(val)) lineCount.push_back(0);
@@ -186,6 +197,24 @@ vector<vector<double>> extractor(string directoryPath){
         if(isnan(avgDec)) averageDeclare.push_back(0);
         else averageDeclare.push_back(avgDec);
 
+
+
+
+
+
+        // cout << f << endl;
+        vector<vector<int>> graph = Graph(f);
+        int numNode = graph.size();
+        double numEdge = NumEdge(graph);
+        numberEdges.push_back(numEdge);
+        numberCycle.push_back(numCycle(graph));
+        numberComponents.push_back(ConnectedComponents(graph));
+        double numComponents = ConnectedComponents(graph);
+        cyclomaticVal.push_back(CyclomaticComplexity(numNode,numEdge,numComponents));
+        depth.push_back(DepthOfGraph(graph));
+        fanIn.push_back(FanIn(numEdge,numNode));
+        fanOut.push_back(FanOut(numEdge,numNode));
+
     }
     vector<double> vec;
     for(int i = 0; i < fileName.size(); i++){
@@ -217,10 +246,19 @@ vector<vector<double>> extractor(string directoryPath){
         vec.push_back(averageNesting[i]);
         vec.push_back(maximumDeclare[i]);
         vec.push_back(averageDeclare[i]);
+        vec.push_back(numberCycle[i]);
+        vec.push_back(numberComponents[i]);
+        vec.push_back(numberEdges[i]);
+        vec.push_back(cyclomaticVal[i]);
+        vec.push_back(depth[i]);
+        vec.push_back(fanIn[i]);
+        vec.push_back(fanOut[i]);
         features.push_back(vec);
         vec.clear();
+        // cout << fileName[i] << endl;
     }
     if(p==0){
+        cout << "File you try to identify -> ";
         for(auto p: printName){
             cout << p << endl;
         }

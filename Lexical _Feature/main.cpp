@@ -37,6 +37,14 @@
 #include"../Features/BraceNext.cpp"
 #include"../Features/SpaceLine.cpp"
 #include"../Features/TabLine.cpp"
+#include"../Final/Control_Flow_Features/Control_Flow.cpp"
+#include"../Final/Control_Flow_Features/Cycle.cpp"
+#include"../Final/Control_Flow_Features/CyclomaticComplexity.cpp"
+#include"../Final/Control_Flow_Features/DFS.cpp"
+#include"../Final/Control_Flow_Features/Edge.cpp"
+#include"../Final/Control_Flow_Features/SCC.cpp"
+#include"../Final/Control_Flow_Features/Fan_In.cpp"
+#include"../Final/Control_Flow_Features/Fan_Out.cpp"
 using namespace std;
 
 
