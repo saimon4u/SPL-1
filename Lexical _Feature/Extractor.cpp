@@ -258,7 +258,7 @@ vector<vector<double>> extractor(string directoryPath){
         // cout << fileName[i] << endl;
     }
     if(p==0){
-        cout << "File you try to identify -> ";
+        cout << "Files you try to identify -> " << endl;
         for(auto p: printName){
             cout << p << endl;
         }

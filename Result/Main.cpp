@@ -6,7 +6,7 @@ using namespace std;
 
 
 const int NUM_FEATURES = 34;
-const int NUM_CLUSTERS = 4;
+const int NUM_CLUSTERS = 3;
 const int NUM_FILES = 15;
 
 struct ProgrammerData
@@ -107,7 +107,6 @@ vector<ProgrammerData> initializeCentroids(vector<ProgrammerData> &data, int k){
 
 void assignToClusters(vector<ProgrammerData>& data,vector<ProgrammerData>& centroids){
     for(auto &point : data){
-            // cout << "minDistance" << endl;
         double minDistance = numeric_limits<double>::max();
         for(auto &centroid : centroids){
             double distance = euclideanDistance(point.matrix, centroid.matrix);
@@ -240,8 +239,8 @@ int main(){
         data[i].matrix.push_back(matrix);
         addNewDataToCluster(data[i],centroids);
     }
-    cout << "Your test file is in cluster -> " << data[0].cluster << endl << endl;
     for(int i=0; i<numNewData; i++){
+        cout << "Your test file is in cluster -> " << data[i].cluster << endl << endl;
         cout << "Expected Programmer's are: " << endl;
         for(auto cl: clusteredData){
             if(data[i].cluster == cl.cluster){
